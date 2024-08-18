@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.study</groupId>
         <artifactId>study_notes</artifactId>
+        <groupId>com.study</groupId>
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>JavaWeb</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <version>1.0.0</version>
+    <artifactId>JavaWeb</artifactId>
 
     <dependencies>
         <!--lombok-->

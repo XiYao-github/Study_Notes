@@ -20,6 +20,7 @@
         <module>JavaSE</module>
         <module>JavaWeb</module>
         <module>Spring</module>
+        <module>SpringBoot</module>
     </modules>
 
     <!--JDK 的版本-->

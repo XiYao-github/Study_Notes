@@ -21,6 +21,8 @@
         <module>JavaWeb</module>
         <module>Spring</module>
         <module>SpringBoot</module>
+        <module>SpringCloud</module>
+        <module>Commons</module>
     </modules>
 
     <!--JDK 的版本-->

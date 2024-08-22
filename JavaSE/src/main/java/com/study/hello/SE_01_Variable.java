@@ -2,6 +2,16 @@ package com.study.hello;
 
 public class SE_01_Variable {
 
+    static boolean bool;
+    static byte by;
+    static char ch;
+    static double d;
+    static float f;
+    static int i;
+    static long l;
+    static short sh;
+    static String str;
+
     public static void main(String[] args) {
         variableTypeConvert();
     }
@@ -52,17 +62,6 @@ public class SE_01_Variable {
         // 变量/方法名：多单词组成时，第一个单词首字母小写，第二个单词开始首字母大写：xxxYyyZzz
         // 常量名：所有字母都大写，多单词组成时，每个单词用下划线连接：XXX_YYY_ZZZ
     }
-
-
-    static boolean bool;
-    static byte by;
-    static char ch;
-    static double d;
-    static float f;
-    static int i;
-    static long l;
-    static short sh;
-    static String str;
 
     /**
      * 变量就是申请内存来存储值。当创建变量的时候，需要在内存中申请空间。

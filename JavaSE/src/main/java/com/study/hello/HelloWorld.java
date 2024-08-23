@@ -12,7 +12,6 @@ public class HelloWorld {
     public static void main(String[] args) {
         /*
         多行注释示例
-        这是第一个Java程序，它将输出 Hello World
          */
         // 单行注释示例
         // 它将输出 Hello World

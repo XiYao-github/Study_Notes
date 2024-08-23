@@ -11,10 +11,10 @@ public class SE_03_Process {
 
     /**
      * 分支结构
-     * if-else分支
-     * 利用判断条件来决定执行哪个分支
-     * 注意事项：如果if语句的"{}"中只有一行代码的情况，"{}"可以省略不写(但是不推荐省略)。
-     * 分支推荐：if适合做区间匹配，对结果为boolean类型判断，建议使用if语句，使用范围更广。
+     * - if-else分支
+     * - 利用判断条件来决定执行哪个分支
+     * - 注意事项：如果if语句的"{}"中只有一行代码的情况，"{}"可以省略不写(但是不推荐省略)。
+     * - 分支推荐：if适合做区间匹配，对结果为boolean类型判断，建议使用if语句，使用范围更广。
      */
     public static void ifElse() {
         /*if (条件判断1) {
@@ -48,11 +48,11 @@ public class SE_03_Process {
 
     /**
      * 分支结构
-     * switch分支
-     * 利用表达式的值来进行值匹配选择对应的分支执行，结构清晰，格式良好。
-     * 表达式类型只能是byte、short、int、char。
-     * JDK5开始支持枚举，JDK7开始支持String、不支持double、float、long。
-     * 分支推荐：switch适合做值匹配的分支选择，判断的具体数值不多，建议使用switch语句，格式清晰，性能较好。
+     * - switch分支
+     * - 利用表达式的值来进行值匹配选择对应的分支执行，结构清晰，格式良好。
+     * - 表达式类型只能是byte、short、int、char。
+     * - JDK5开始支持枚举，JDK7开始支持String、不支持double、float、long。
+     * - 分支推荐：switch适合做值匹配的分支选择，判断的具体数值不多，建议使用switch语句，格式清晰，性能较好。
      */
     public static void switchCase() {
 
@@ -102,11 +102,11 @@ public class SE_03_Process {
 
     /**
      * 循环结构
-     * for循环
-     * 循环条件是返回一个布尔值的表达式。
+     * - for循环
+     * - 循环条件是返回一个布尔值的表达式。
      * <p>
      * 循环嵌套
-     * 循环中又包含循环，外部循环每循环一次，内部循环全部执行完一次。
+     * - 循环中又包含循环，外部循环每循环一次，内部循环全部执行完一次。
      */
     public static void forCirculate() {
         /*for(初始化语句;循环判断条件;迭代语句){
@@ -125,9 +125,9 @@ public class SE_03_Process {
 
     /**
      * 循环结构
-     * while循环
-     * 循环条件是返回一个布尔值的表达式。
-     * while循环是先判断再执行语句。
+     * - while循环
+     * - 循环条件是返回一个布尔值的表达式。
+     * - while循环是先判断再执行语句。
      */
     public static void whileCirculate() {
         /*while(循环判断条件){
@@ -145,9 +145,9 @@ public class SE_03_Process {
 
     /**
      * 循环结构
-     * do-while循环
-     * 循环条件是返回一个布尔值的表达式。
-     * do-while循环是先执行，再判断，因此它至少执行一次，最后循环条件后有一个分号。
+     * - do-while循环
+     * - 循环条件是返回一个布尔值的表达式。
+     * - do-while循环是先执行，再判断，因此它至少执行一次，最后循环条件后有一个分号。
      */
     public static void doWhileCirculate() {
         /*do{
@@ -166,8 +166,8 @@ public class SE_03_Process {
 
     /**
      * 循环结构
-     * 死循坏
-     * 一直循环的执行下去，如果没有干预不会停止下来。
+     * - 死循坏
+     * - 一直循环的执行下去，如果没有干预不会停止下来。
      */
     public static void dieCirculate() {
         // for (; ; ) {
@@ -183,15 +183,15 @@ public class SE_03_Process {
 
     /**
      * 三种循环的区别
-     * do...while(第一次先执行后判断)
-     * for循环和while循环(先判断后执行)，循环的执行流程是一模一样的。
-     * 如果已知循环次数建议使用for循环，如果不清楚要循环多少次建议使用while循环。
-     * for循环中，控制循环的变量只在循环中可以使用，while循环中，控制循环的变量在循环后还可以继续使用。
+     * - do...while(第一次先执行后判断)
+     * - for循环和while循环(先判断后执行)，循环的执行流程是一模一样的。
+     * - 如果已知循环次数建议使用for循环，如果不清楚要循环多少次建议使用while循环。
+     * - for循环中，控制循环的变量只在循环中可以使用，while循环中，控制循环的变量在循环后还可以继续使用。
      * <p>
      * 跳转控制语句
-     * break：跳出并结束当前所在循环的执行，只能用于结束所在循环，或者结束所在switch分支的执行。
-     * continue：跳出当前循环的当次执行，继续进入下一次循环，只能在循环中进行使用。
-     * return：跳出当前所在的方法，一般使用在方法内。
+     * - break：跳出并结束当前所在循环的执行，只能用于结束所在循环，或者结束所在switch分支的执行。
+     * - continue：跳出当前循环的当次执行，继续进入下一次循环，只能在循环中进行使用。
+     * - return：跳出当前所在的方法，一般使用在方法内。
      */
     public static void nestCirculate() {
         Scanner in = new Scanner(System.in);

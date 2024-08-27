@@ -1,4 +1,4 @@
 package com.study.hello;
 
-public class SE_14_Inner {
+public class SE_16_Enum {
 }

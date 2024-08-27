@@ -13,8 +13,19 @@ package com.study.hello;
  * - 工具类的类方法可以直接用类名访问，调用方便，提高了开发效率。
  * - 工具类没有创建对象的需求，建议将工具类的构造器进行私有。
  */
-public class SE_08_Static {
+public class SE_09_Static {
 
+    public static void main(String[] args) {
+        // 调用类方法
+        Static.myName(Static.name);
+        // 调用成员方法
+        Static aStatic = new Static();
+        aStatic.myPhone(aStatic.phone);
+    }
+
+}
+
+class Static {
     /**
      * 静态成员变量
      * - 有static修饰，属于类,加载一次，内存中只有一份
@@ -31,7 +42,7 @@ public class SE_08_Static {
      * - 类名.静态成员方法
      * - 对象.静态成员方法(不推荐)
      */
-    public static void myName() {
+    public static void myName(String name) {
         System.out.println("用户名：" + name);
     }
 
@@ -49,7 +60,7 @@ public class SE_08_Static {
      * 访问格式：
      * - 对象.实例成员方法
      */
-    public void myPhone() {
+    public void myPhone(String phone) {
         System.out.println("手机号：" + this.phone);
     }
 
@@ -74,5 +85,4 @@ public class SE_08_Static {
          */
         phone = "17720202177";
     }
-
 }

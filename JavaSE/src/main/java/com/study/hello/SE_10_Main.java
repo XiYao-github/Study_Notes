@@ -1,6 +1,6 @@
 package com.study.hello;
 
-public class SE_09_Main {
+public class SE_10_Main {
 
     /**
      * main方法
@@ -32,47 +32,47 @@ public class SE_09_Main {
 }
 
 class Parent {
-    static String name;
-    String type;
+    private static String name;
+    private String type;
 
     static {
         name = "父类";
-        System.out.println("1.父类的静态属性/代码块初始化！！！");
+        System.out.println("1." + name + "的静态属性/代码块初始化！！！");
     }
 
     {
         type = "超类";
-        System.out.println("3.父类的普通属性/代码块初始化！！！");
+        System.out.println("3." + type + "的普通属性/代码块初始化！！！");
     }
 
     public Parent() {
         //super();
         //会在super()后隐含的调用本类代码块
-        System.out.println("4.父类的构造方法初始化！！！");
+        System.out.printf("4.%s(%s)的构造方法初始化！！！\n", name, type);
     }
 }
 
 class Sub extends Parent {
-    static String name;
-    String type;
+    private static String name;
+    private String type;
 
     static {
         name = "子类";
-        System.out.println("2.子类的静态属性/代码块初始化！！！");
+        System.out.println("2." + name + "的静态属性/代码块初始化！！！");
     }
 
     {
         type = "基类";
-        System.out.println("5.子类的普通属性/代码块初始化！！！");
+        System.out.println("5." + type + "的普通属性/代码块初始化！！！");
     }
 
     public Sub() {
         //super();
         //会在super()后隐含的调用本类代码块
-        System.out.println("6.子类的构造方法初始化！！！");
+        System.out.printf("6.%s(%s)的构造方法初始化！！！\n", name, type);
     }
 
     public static void study() {
-        System.out.println("调用子类静态方法！！！");
+        System.out.println("调用" + name + "静态方法！！！");
     }
 }

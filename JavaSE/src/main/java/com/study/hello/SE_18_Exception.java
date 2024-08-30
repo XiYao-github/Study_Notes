@@ -74,14 +74,14 @@ class Try_Catch_Finally {
                 throw new MyException("自定义编译时异常");
             }
             if (n == 2) {
-                throw new RuntimeException("自定义运行时异常");
+                throw new MyRuntimeException("自定义运行时异常");
             }
             if (n == 3) {
                 throw new Exception("编译异常");
             }
         } catch (MyException e) {
             System.out.println("捕获到自定义编译时异常");
-        } catch (RuntimeException e) {
+        } catch (MyRuntimeException e) {
             System.out.println("捕获到自定义运行时异常");
         } catch (Exception e) {
             // 处理异常，可以有多个catch捕获多种异常，异常类型从小(子类)到大(父类)捕捉

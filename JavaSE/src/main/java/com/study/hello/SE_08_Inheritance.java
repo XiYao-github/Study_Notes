@@ -48,7 +48,7 @@ public class SE_08_Inheritance {
  * - this默认从本类找，super默认从父类开始找。满足：就近原则。
  * - 子类中所有的构造器默认都会先访问父类中无参的构造器，再执行自己。
  * - 子类构造器的第一行语句默认都是super()，不写也存在。
- * - super()和this()都只能放在构造器第一行，因此这两个方法不能共存在一个构造器 。
+ * - super()和this()都只能放在构造器第一行，因此这两个方法不能共存在一个构造器。
  */
 class Animal_Inheritance {
     public String name;

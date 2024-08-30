@@ -20,13 +20,13 @@ package com.study.hello;
  */
 public class SE_06_Object {
     public static void main(String[] args) {
-        //使用对象：必须先设计类，才能创建对象并使用
-        //创建对象：类名 对象名 = new 类名();
+        // 使用对象：必须先设计类，才能创建对象并使用
+        // 创建对象：类名 对象名 = new 类名();
         Obj obj = new Obj();
-        //访问属性：对象.成员变量；
+        // 访问属性：对象.成员变量；
         String name = obj.name;
         System.out.print(name);
-        //访问行为：对象.成员方法(…)；
+        // 访问行为：对象.成员方法(…)；
         obj.call();
     }
 }

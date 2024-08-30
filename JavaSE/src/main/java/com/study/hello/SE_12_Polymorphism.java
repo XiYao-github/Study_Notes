@@ -48,7 +48,6 @@ public class SE_12_Polymorphism {
         // 运行时，如果发现强制转换后的类型不是对象真实类型则报错(ClassCastException)
         // Cat_Polymorphism cat = (Cat_Polymorphism) animal;
 
-
         /**
          * 动态绑定
          * - 当调用对象方法时，该方法会和该对象的内存地址/运行类型绑定。

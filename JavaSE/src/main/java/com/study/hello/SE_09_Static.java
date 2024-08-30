@@ -14,7 +14,6 @@ package com.study.hello;
  * - 工具类没有创建对象的需求，建议将工具类的构造器进行私有。
  */
 public class SE_09_Static {
-
     public static void main(String[] args) {
         // 调用类方法
         Static.myName(Static.name);
@@ -22,7 +21,6 @@ public class SE_09_Static {
         Static aStatic = new Static();
         aStatic.myPhone(aStatic.phone);
     }
-
 }
 
 class Static {

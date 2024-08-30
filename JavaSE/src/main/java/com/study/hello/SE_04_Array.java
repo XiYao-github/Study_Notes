@@ -41,13 +41,14 @@ public class SE_04_Array {
         // 数组的最大索引，数组名.length–1，前提：元素个数大于0
         int maxIndex = autoArr.length - 1;
 
-        // 元素默认值规则
-        // 基本类型
-        // byte、short、char、int、long    0
-        // float、double                 0.0
-        // boolean                      false
-        // 引用类型
-        // 类、接口、数组、String          null
+        /*  元素默认值规则
+            基本类型
+            byte、short、char、int、long    0
+            float、double                 0.0
+            boolean                      false
+            引用类型
+            类、接口、数组、String          null
+        */
     }
 
     /**

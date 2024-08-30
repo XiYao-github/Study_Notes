@@ -1,7 +1,5 @@
 package com.study.hello;
 
-import java.util.Arrays;
-
 /**
  * 泛型
  * - 泛型又称参数化类型，用来解决数据类型的安全性问题，可以在编译阶段约束只能操作某种数据类型。
@@ -28,7 +26,7 @@ import java.util.Arrays;
  * <? extends A>：表示可以接受的必须是A或者A的子类(泛型上限)
  * <? super A>：表示可以接受的必须是A或者A的夫类(泛型下限)
  */
-public class SE_17_Generics {
+public class SE_16_Generics {
     public static void main(String[] args) {
         GenericsClass<String> stringUser = new GenericsClass<>("str");
         stringUser.method("str");

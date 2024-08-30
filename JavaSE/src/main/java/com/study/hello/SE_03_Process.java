@@ -55,7 +55,6 @@ public class SE_03_Process {
      * - 分支推荐：switch适合做值匹配的分支选择，判断的具体数值不多，建议使用switch语句，格式清晰，性能较好。
      */
     public static void switchCase() {
-
         /*switch(表达式){
             case 值1:  //case给出的值不允许重复，且只能是常量，不能是变量。
                 执行代码...;

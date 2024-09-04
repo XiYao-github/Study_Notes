@@ -87,8 +87,6 @@ interface Animal_Interface {
  * 实现类
  * - 接口是用来被类实现(implements)的，实现接口的类称为实现类。
  * - 实现类可以理解成接口的子类，所以接口存在多态传递。
- * - 实现类可以理解成接口的子类，所以接口存在多态传递。
- * - 实现类可以理解成接口的子类，所以接口存在多态传递。
  */
 class Pig_Interface implements Animal_Interface {
     @Override

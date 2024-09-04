@@ -21,7 +21,7 @@ package com.study.hello;
  * SE_18_Exception(异常)
  * SE_19_Annotation(注解)
  * SE_20_lambda
- * SE_21_Collection
+ * SE_19_Collection
  * SE_22_List
  * SE_23_Set
  * SE_24_Map

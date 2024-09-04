@@ -38,8 +38,28 @@ package com.study.hello;
  * - @SafeVarargs - Java 7 开始支持，忽略任何使用参数为泛型变量的方法或构造函数调用产生的警告。
  * - @FunctionalInterface - Java 8 开始支持，标识一个匿名函数或函数式接口。
  * - @Repeatable - Java 8 开始支持，标识某注解可以在同一个声明上使用多次。
+ * <p>
+ * 元注解
+ * - @Retention 定义了该注解的生命周期，作用就是说明这个注解的存活时间。
+ * - RetentionPolicy.SOURCE: 注解只在源码阶段保留，在编译器完整编译之后，它将被丢弃忽视；例：@Override, @SuppressWarnings
+ * - RetentionPolicy.CLASS: 注解只被保留到编译进行的时候，它并不会被加载到 JVM 中；
+ * - RetentionPolicy.RUNTIME: 注解可以保留到程序运行的时候，它会被加载进入到 JVM 中，所以在程序运行时可以获取到它们；
+ * <p>
+ * - @Target 表示该注解用于什么地方，可以理解为这个注解就被限定了运用的场景。
+ * - ElementType.CONSTRUCTOR: 对构造方法进行注解；
+ * - ElementType.ANNOTATION_TYPE: 对注解进行注解；
+ * - ElementType.FIELD: 对属性、成员变量、成员对象（包括 enum 实例）进行注解；
+ * - ElementType.LOCAL_VARIABLE: 对局部变量进行注解；
+ * - ElementType.METHOD: 对方法进行注解；
+ * - ElementType.PACKAGE: 对包进行注解；
+ * - ElementType.PARAMETER: 对描述参数进行注解；
+ * - ElementType.TYPE: 对类、接口、枚举进行注解；
+ *
+ * - @Documented 是一个简单的标记注解，表示是否将注解信息添加在 Java 文档，即 Javadoc 中。
+ * - @Inherited 指继承。如果一个超类带有 @Inherited 注解，它的子类如果没有被任何注解应用的话，那么这个子类就继承了超类的注解。
+ * - @Repeatable 是 Java 8 中加入的，是指可重复的意思。通常使用 @Repeatable 的时候指注解的值可以同时取多个
  */
-public class SE_19_Annotation {
+public class SE_30_Annotation {
 }
 
 
@@ -47,12 +67,19 @@ public class SE_19_Annotation {
  * 自定义注解
  * - value属性，如果只有一个value属性的情况下，使用value属性的时候可以省略value名称不写。
  * - 但是如果有多个属性，且多个属性没有默认值，那么value名称是不能省略的。
+ * - 注解类型定义为 @interface，所有的注解会自动继承 java.lang.Annotation 这一接口，而且不能再去继承其他的类或接口；
+ * - 参数成员只能用 public 或 default 两个关键字修饰；
+ * - 参数成员只能用基本类型：byte, short, char, int, long, float, double, boolean，以及 String, Enum, Class, Annotations 等数据类型，以及这些类型的数组；
+ * - 要获取类方法和字段的注解信息，必须通过 Java 的反射技术；
+ * - 注解也可以不定义成员变量，但这样的注解没有什么卵用；
+ * - 自定义注解需要使用元注解进行编写；
  */
 // 注解(完整定义格式)：
 /*public @interface 注解名称 {
 	public 属性类型 属性名() default 默认值;
 }*/
 @interface Student {
+    // 注解只有成员变量，没有方法，注解的成员变量在注解的定义中以无形参的方法形式来声明，其方法名定义了该成员变量的名字，其返回值定义了该成员变量的类型。
     public String name() default "张三";
 
     public int age() default 18;

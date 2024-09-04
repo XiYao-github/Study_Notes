@@ -10,8 +10,7 @@ public class SE_03_Process {
     }
 
     /**
-     * 分支结构
-     * - if-else分支
+     * if-else分支
      * - 利用判断条件来决定执行哪个分支
      * - 注意事项：如果if语句的"{}"中只有一行代码的情况，"{}"可以省略不写(但是不推荐省略)。
      * - 分支推荐：if适合做区间匹配，对结果为boolean类型判断，建议使用if语句，使用范围更广。
@@ -47,8 +46,7 @@ public class SE_03_Process {
     }
 
     /**
-     * 分支结构
-     * - switch分支
+     * switch分支
      * - 利用表达式的值来进行值匹配选择对应的分支执行，结构清晰，格式良好。
      * - 表达式类型只能是byte、short、int、char。
      * - JDK5开始支持枚举，JDK7开始支持String、不支持double、float、long。
@@ -100,8 +98,7 @@ public class SE_03_Process {
     }
 
     /**
-     * 循环结构
-     * - for循环
+     * for循环
      * - 循环条件是返回一个布尔值的表达式。
      * <p>
      * 循环嵌套
@@ -123,8 +120,7 @@ public class SE_03_Process {
     }
 
     /**
-     * 循环结构
-     * - while循环
+     * while循环
      * - 循环条件是返回一个布尔值的表达式。
      * - while循环是先判断再执行语句。
      */
@@ -143,8 +139,7 @@ public class SE_03_Process {
     }
 
     /**
-     * 循环结构
-     * - do-while循环
+     * do-while循环
      * - 循环条件是返回一个布尔值的表达式。
      * - do-while循环是先执行，再判断，因此它至少执行一次，最后循环条件后有一个分号。
      */
@@ -164,8 +159,7 @@ public class SE_03_Process {
     }
 
     /**
-     * 循环结构
-     * - 死循坏
+     * 死循坏
      * - 一直循环的执行下去，如果没有干预不会停止下来。
      */
     public static void dieCirculate() {

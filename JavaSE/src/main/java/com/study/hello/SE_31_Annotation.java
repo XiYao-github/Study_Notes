@@ -59,7 +59,7 @@ package com.study.hello;
  * - @Inherited 指继承。如果一个超类带有 @Inherited 注解，它的子类如果没有被任何注解应用的话，那么这个子类就继承了超类的注解。
  * - @Repeatable 是 Java 8 中加入的，是指可重复的意思。通常使用 @Repeatable 的时候指注解的值可以同时取多个
  */
-public class SE_30_Annotation {
+public class SE_31_Annotation {
 }
 
 

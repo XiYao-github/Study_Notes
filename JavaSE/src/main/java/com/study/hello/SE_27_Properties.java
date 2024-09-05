@@ -5,7 +5,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Set;
 
-public class SE_24_Print {
+public class SE_27_Properties {
     public static void main(String[] args) {
 
     }

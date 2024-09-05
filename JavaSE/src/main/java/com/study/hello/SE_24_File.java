@@ -4,16 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * File
  * - File类的对象代表操作系统的文件(文件、文件夹)，File类在java.io.File包下，围绕文件的操作。
  * - File类提供了诸如：创建文件对象(文件)，获取文件信息(大小、修改时间)、删除文件、创建文件夹等功能。
  */
-public class SE_21_File {
+public class SE_24_File {
     public static void main(String[] args) {
 
     }

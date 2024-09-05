@@ -26,7 +26,7 @@ package com.study.hello;
  * <? extends A>：表示可以接受的必须是A或者A的子类(泛型上限)
  * <? super A>：表示可以接受的必须是A或者A的夫类(泛型下限)
  */
-public class SE_16_Generics {
+public class SE_20_Generics {
     public static void main(String[] args) {
         GenericsClass<String> stringUser = new GenericsClass<>("str");
         stringUser.method("str");

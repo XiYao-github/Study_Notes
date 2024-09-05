@@ -19,7 +19,7 @@ import java.util.Date;
  * - ObjectInputStream(InputStream in) 提供序反列化功能
  * - final Object readObject() 反序列化方法(恢复对象数据的类型和值)：从对象字节输入流的文件中读取一个对象数据恢复成内存中的对象
  */
-public class SE_23_Serialize {
+public class SE_26_Serialize {
     public static void main(String[] args) throws Exception {
         //提供序列化功能
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./src/io/Object.txt"));

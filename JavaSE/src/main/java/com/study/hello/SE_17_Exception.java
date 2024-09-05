@@ -24,7 +24,7 @@ package com.study.hello;
  * - 继承自RuntimeException的异常或者其子类，编译阶段不会报错，运行时可能出现的错误。
  * - 编程逻辑不严谨引起的程序错误，例如：(数组索引越界异常，空指针异常，数学运算异常，类型转换异常，数字转换异常)
  */
-public class SE_18_Exception {
+public class SE_17_Exception {
     public static void main(String[] args) throws Exception {
         Try_Catch_Finally.method(4);
     }

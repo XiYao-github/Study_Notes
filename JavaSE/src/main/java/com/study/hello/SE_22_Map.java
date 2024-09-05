@@ -26,7 +26,7 @@ import java.util.function.BiConsumer;
  * - 数组存储元素为16*0.75=12时，数组会自动扩容，每次扩容为当前容量的2倍。
  * - 注意：如果希望集合认为2个内容一样的对象是重复的，必须重写对象的hashCode()和equals()方法。
  */
-public class SE_20_Map {
+public class SE_22_Map {
     public static void main(String[] args) {
 
     }

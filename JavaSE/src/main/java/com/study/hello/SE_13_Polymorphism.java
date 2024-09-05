@@ -13,7 +13,7 @@ package com.study.hello;
  * - 方法调用：编译看左边，运行看右边。
  * - 变量调用：编译看左边，运行也看左边。(注意)
  */
-public class SE_12_Polymorphism {
+public class SE_13_Polymorphism {
     public static void main(String[] args) {
         // 多态的常见形式：父类类型 对象名称 = new 子类构造器;
         // Animal_Polymorphism animal = new Dog_Polymorphism();

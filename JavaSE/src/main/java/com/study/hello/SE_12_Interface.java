@@ -10,7 +10,7 @@ package com.study.hello;
  * - 接口弥补了类单继承的不足，类可以同时实现多个接口。
  * - 接口让程序可以面向接口编程，这样既不用关心实现的细节，也可以灵活方便的切换各种实现。
  */
-public class SE_14_Interface {
+public class SE_12_Interface {
     public static void main(String[] args) {
         // 实现接口测试
         Animal_Interface animal = new Pig_Interface();
@@ -81,6 +81,19 @@ interface Animal_Interface {
     public static final String NAME = "动物";
 
     public abstract void eat(String name);
+
+    /**
+     * JDK8接口新增了2个方法
+     * 默认方法：其实就是实例方法，必须用default修饰，默认会自带public，必须用接口的实现类的对象来调用
+     * 静态方法：必须static修饰，默认会自带public，必须用接口名自己调用
+     */
+    public default void defaultMethod() {
+        System.out.println("默认方法");
+    }
+
+    public static void staticMethod() {
+        System.out.println("静态方法");
+    }
 }
 
 /**

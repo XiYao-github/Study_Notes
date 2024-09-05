@@ -14,7 +14,7 @@ import java.util.Arrays;
  * - 只要是以“...”方式写出的字符串对象，会存储到字符串常量池，且相同内容的字符串只存储一份；
  * - 但通过new方式创建字符串对象，每new一次都会产生一个新的对象放在堆内存中。
  */
-public class SE_11_String {
+public class SE_18_String {
     public static void main(String[] args) {
         string();
     }

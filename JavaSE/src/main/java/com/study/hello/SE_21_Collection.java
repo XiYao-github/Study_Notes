@@ -16,7 +16,7 @@ import java.util.function.Predicate;
  * - Collection单列集合，每个元素(数据)只包含一个值。
  * - Map双列集合，每个元素包含两个值(键值对)。
  */
-public class SE_19_Collection {
+public class SE_21_Collection {
     public static void main(String[] args) {
         collectionErgodic();
     }

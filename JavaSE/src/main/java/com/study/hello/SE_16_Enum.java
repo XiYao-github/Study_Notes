@@ -7,7 +7,7 @@ package com.study.hello;
  * - 枚举类都是继承了枚举类型：java.lang.Enum，枚举都是最终类，不可以被继承。
  * - 构造器都是私有的，枚举对外不能创建对象，枚举类的第一行默认都是罗列枚举对象的名称的。
  */
-public class SE_17_Enum {
+public class SE_16_Enum {
     public static void main(String[] args) {
         System.out.println("创建自定义枚举，打印所有枚举常量...");
         System.out.println(Custom_Season.SPRING);

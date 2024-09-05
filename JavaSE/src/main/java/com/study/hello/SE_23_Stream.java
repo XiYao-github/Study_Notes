@@ -1,4 +1,4 @@
 package com.study.hello;
 
-public class SE_30_Stream {
+public class SE_23_Stream {
 }

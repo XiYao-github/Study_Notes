@@ -1,7 +1,6 @@
 package com.study.hello;
 
 import java.io.*;
-import java.util.Date;
 
 /**
  * IO流：读写数据
@@ -30,7 +29,7 @@ import java.util.Date;
  * - - 字符输出转换流(OutputStreamWriter)：可以把字节输出流按照指定编码转换成字符输出流。
  * - - 字符打印流(PrintWriter)：继承自字符输出流Writer，支持写字符数据出去。
  */
-public class SE_22_IO {
+public class SE_25_IO {
     public static void main(String[] args) {
 
     }

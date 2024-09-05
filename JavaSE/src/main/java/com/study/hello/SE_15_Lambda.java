@@ -11,7 +11,7 @@ package com.study.hello;
  * - 注意：将来我们见到的大部分函数式接口，上面都可能会有一个@FunctionalInterface的注解，有该注解的接口就必定是函数式接口。
  * - lambda表达式是函数式编程的一种体现，它允许将函数当作参数传递给方法，或者将函数作为返回值，这种支持使得Java在函数式编程方面更为灵活，能够更好地处理集合操作、并行计算等任务。
  */
-public class SE_30_Lambda {
+public class SE_15_Lambda {
     public static void main(String[] args) {
         Lambda lambda = new Lambda();
         // 基于接口的匿名内部类实现

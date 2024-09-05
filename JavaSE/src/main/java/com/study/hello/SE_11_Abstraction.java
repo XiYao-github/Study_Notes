@@ -15,7 +15,7 @@ package com.study.hello;
  * - 一个类继承了抽象类必须重写完抽象类的全部抽象方法，否则这个类也是一个抽象类。
  * - 抽象类的本质还是类，类的成员(变量、方法、构造器)抽象类都具备。
  */
-public class SE_13_Abstraction {
+public class SE_11_Abstraction {
     public static void main(String[] args) {
         Animal_Abstraction animal = new Pig_Abstraction();
         animal.eat("佩奇");

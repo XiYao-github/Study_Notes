@@ -1,4 +1,4 @@
 package com.study.hello;
 
-public class SE_30_Date {
+public class SE_28_Thread {
 }

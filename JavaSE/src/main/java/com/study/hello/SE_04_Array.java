@@ -33,6 +33,7 @@ public class SE_04_Array {
         // 数据类型[] 数组名 = new 数据类型[长度];
         int[] autoArr = new int[10];
         autoArr[0] = 10;
+
         // 数组基本属性
         // 访问数组的元素，数组名称[索引]
         int indexOf = autoArr[0];
@@ -40,15 +41,6 @@ public class SE_04_Array {
         int length = autoArr.length;
         // 数组的最大索引，数组名.length–1，前提：元素个数大于0
         int maxIndex = autoArr.length - 1;
-
-        /*  元素默认值规则
-            基本类型
-            byte、short、char、int、long    0
-            float、double                 0.0
-            boolean                      false
-            引用类型
-            类、接口、数组、String          null
-        */
     }
 
     /**

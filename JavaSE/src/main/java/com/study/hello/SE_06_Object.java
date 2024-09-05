@@ -20,6 +20,7 @@ package com.study.hello;
  */
 public class SE_06_Object {
     public static void main(String[] args) {
+        // new出来的对象在堆内存中，对象中存储的是对象在堆内存中的地址信息，每个对象彼此不冲突！
         // 使用对象：必须先设计类，才能创建对象并使用
         // 创建对象：类名 对象名 = new 类名();
         Obj obj = new Obj();

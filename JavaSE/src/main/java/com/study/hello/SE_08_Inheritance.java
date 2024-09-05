@@ -55,10 +55,12 @@ class Animal_Inheritance {
     public int age;
 
     public Animal_Inheritance() {
+        super();
         System.out.println("动物类无参构造方法初始化...");
     }
 
     public Animal_Inheritance(String name, int age) {
+        this();
         System.out.println("动物类有参构造方法初始化...");
         this.name = name;
         this.age = age;
@@ -78,6 +80,7 @@ class Animal_Inheritance {
 
 class Dog_Inheritance extends Animal_Inheritance {
     public Dog_Inheritance() {
+        super();
         System.out.println("狗类无参构造方法初始化...");
     }
 
@@ -94,6 +97,7 @@ class Dog_Inheritance extends Animal_Inheritance {
 
 class Cat_Inheritance extends Animal_Inheritance {
     public Cat_Inheritance() {
+        super();
         System.out.println("猫类无参构造方法初始化...");
     }
 

@@ -72,6 +72,14 @@ public class SE_01_Variable {
      * - 内存管理系统根据变量的类型为变量分配存储空间(字节)，分配的内存空间(字节)只能用来储存该类型数据。
      */
     public static void variableType() {
+        /*  元素默认值规则
+            基本类型
+            byte、short、char、int、long    0
+            float、double                 0.0
+            boolean                      false
+            引用类型
+            类、接口、数组、String          null
+        */
         System.out.println("基本类型：byte 二进制位数：" + Byte.SIZE + "\t默认值-Byte :" + by);
         System.out.println("基本类型：char 二进制位数：" + Character.SIZE + "\t默认值-Character:('u0000')" + ch);
         System.out.println("基本类型：short 二进制位数：" + Short.SIZE + "\t默认值-Short :" + sh);

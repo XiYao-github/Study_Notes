@@ -13,7 +13,7 @@ package com.study.hello;
  * - 常量的作用：通常用来记录系统的配置数据，可以不加载类直接使用的属性。
  * - 在编译阶段会进行"宏替换"：把使用常量的地方全部替换成真实的字面量，维护系统容易，可读性更好。
  */
-public class SE_11_Final {
+public class SE_10_Final {
     public static void main(String[] args) {
         // final修饰的类，不能继承，但是可以实例化对象
         A_Final a = new A_Final("TEST_5");

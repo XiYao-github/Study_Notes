@@ -15,7 +15,7 @@ package com.study.hello;
  */
 public class SE_11_Final {
     public static void main(String[] args) {
-        //final修饰的类，不能继承，但是可以实例化对象
+        // final修饰的类，不能继承，但是可以实例化对象
         A_Final a = new A_Final("TEST_5");
         a.study();
         System.out.println();

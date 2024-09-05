@@ -22,15 +22,13 @@ public class SE_19_Collection {
     }
 
     /**
-     * Collection(接口)
-     * - Collection是单列集合的祖宗接口，它的功能是全部单列集合都可以继承使用的。
-     * - Collection单列集合，每个元素(数据)只包含一个值(key)。
+     * Collection(接口)：是单列集合的祖宗接口，它的功能是全部单列集合都可以继承使用的。
      * - List系列集合：添加的元素是有序、可重复、有索引。
-     * - ArrayList、LinkedList：有序、可重复、有索引。
+     * - - ArrayList、Vector、LinkedList：有序、可重复、有索引。
      * - Set系列集合：添加的元素是无序、不重复、无索引。
-     * - HashSet：无序、不重复、无索引；
-     * - LinkedHashSet：有序、不重复、无索引。
-     * - TreeSet：按照大小默认升序排序、不重复、无索引。
+     * - - HashSet：无序、不重复、无索引。
+     * - - LinkedHashSet：有序、不重复、无索引。
+     * - - TreeSet：按照大小默认升序排序、不重复、无索引。
      */
     public static void collection() {
         Collection<String> collection = new ArrayList<>();
@@ -137,7 +135,7 @@ public class SE_19_Collection {
     /**
      * List(接口)
      * - List集合因为支持索引，所以多了很多索引操作的独特API，其他Collection的功能List也都继承了。
-     * - ArrayList、Vector、LinkedList：有序，可重复，有索引。
+     * - ArrayList、Vector、LinkedList：有序、可重复、有索引。
      * - 有序：存储和取出的元素顺序一致。
      * - 有索引：可以通过索引操作元素。
      * - 可重复：存储的元素可以重复。
@@ -174,7 +172,7 @@ public class SE_19_Collection {
         System.out.println("删除：" + list.remove(1));//删除：张三
         System.out.println(list);//[张三, 李四, 王二, 麻子]
 
-        // E set(int index, E element)将指定位置的元素替换为指定元素
+        //E set(int index, E element)将指定位置的元素替换为指定元素
         System.out.println("替换：" + list.set(0, "法外狂徒"));//替换：张三
         System.out.println(list);//[法外狂徒, 李四, 王二, 麻子]
 
@@ -217,13 +215,12 @@ public class SE_19_Collection {
      * - 扩容实际是给Object[] elementData对象数组重新赋值，elementData = Arrays.copyOf(elementData, newCapacity);
      */
     public static void arrayList() {
-        Collection<String> list = new ArrayList<>();
-        //创建默认ArrayList集合
-        ArrayList<String> arrayList = new ArrayList();
-        //指定长度创建ArrayList集合
-        ArrayList<String> arrayList_1 = new ArrayList(10);
-        //使用集合创建ArrayList集合
-        ArrayList<String> arrayList_2 = new ArrayList(list);
+        // 创建默认ArrayList集合
+        ArrayList<String> arrayList = new ArrayList<>();
+        // 指定长度创建ArrayList集合
+        ArrayList<String> arrayList_1 = new ArrayList<>(10);
+        // 使用集合创建ArrayList集合
+        ArrayList<String> arrayList_2 = new ArrayList<>(arrayList);
     }
 
     /**
@@ -236,34 +233,33 @@ public class SE_19_Collection {
      * - 扩容实际是给Object[] elementData对象数组重新赋值，elementData = Arrays.copyOf(elementData, newCapacity);
      */
     public static void vector() {
-        Collection<String> list = new Vector<>();
         //创建默认Vector集合
-        Vector<String> vector = new Vector();
+        Vector<String> vector = new Vector<>();
         //指定长度创建Vector集合
-        Vector<String> vector_1 = new Vector(10);
+        Vector<String> vector_1 = new Vector<>(10);
         //使用集合创建Vector集合
-        Vector<String> vector_2 = new Vector(list);
+        Vector<String> vector_2 = new Vector<>(vector);
     }
 
     /**
      * LinkedList(实现类)
      * - LinkedList底层数据结构是双链表，查询慢，首尾操作的速度是极快的，所以多了很多首尾操作的特有API。
-     * - LinkedList是线程不安全的，在多线程情况下，不建议使用LinekdList。
+     * - LinkedList是线程不安全的，在多线程情况下，不建议使用LinkedList。
      * - LinkedList可以添加null值，并且可以添加多个null，存在值相同时，优先使用索引小的值。
      * - LinkedList有两个属性：first(指向链表首节点)、last(指向链表尾节点)。
      * - LinkedList每个节点(Node对象：静态内部类)有三个属性：prev(指向上一个节点)、item(当前节点数据)、next(指向下一个节点)。
      */
     public static void linkedList() {
-        List<String> list = new LinkedList();
+        List<String> list = new LinkedList<>();
         list.add("张三");
         list.add("李四");
         list.add("王二");
         list.add("麻子");
 
         //创建默认LinkedList集合
-        LinkedList<String> linkedList = new LinkedList();
+        LinkedList<String> linkedList = new LinkedList<>();
         //按照集合顺序创建LinkedList集合
-        LinkedList<String> linkedListNew = new LinkedList(list);
+        LinkedList<String> linkedListNew = new LinkedList<>(list);
         System.out.println(linkedListNew);//[张三, 李四, 王二, 麻子]
 
         //LinkedList方法
@@ -303,9 +299,9 @@ public class SE_19_Collection {
     /**
      * Set(接口)
      * - Set系列集合：添加的元素是无序、不重复、无索引。
-     * - HashSet：无序、不重复、无索引。
-     * - LinkedHashSet：有序、不重复、无索引。
-     * - TreeSet：排序、不重复、无索引。
+     * - - HashSet：无序、不重复、无索引。
+     * - - - LinkedHashSet：有序、不重复、无索引。
+     * - - TreeSet：排序、不重复、无索引。
      * - 无序：存取顺序不一致。
      * - 不重复：可以去除重复。
      * - 无索引：没有带索引的方法，所以不能使用普通for循环遍历，也不能通过索引来获取元素。
@@ -323,15 +319,14 @@ public class SE_19_Collection {
      * - HashSet存储元素是无序的，但取出元素顺序是有序的，哈希表的索引是根据元素的哈希值确定的。
      */
     public static void hashSet() {
-        Collection<String> set = new HashSet<>();
         //创建默认HashSet集合
-        HashSet<String> hashSet = new HashSet();
+        HashSet<String> hashSet = new HashSet<>();
         //指定初始容量创建HashSet集合
-        HashSet<String> hashSet_1 = new HashSet(16);
+        HashSet<String> hashSet_1 = new HashSet<>(16);
         //指定初始容量和加载因子创建HashSet集合
-        HashSet<String> hashSet_2 = new HashSet(16, 0.75f);
+        HashSet<String> hashSet_2 = new HashSet<>(16, 0.75f);
         //使用集合创建HashSet集合
-        HashSet<String> hashSet_3 = new HashSet(set);
+        HashSet<String> hashSet_3 = new HashSet<>(hashSet);
     }
 
     /**
@@ -344,15 +339,14 @@ public class SE_19_Collection {
      * - 原理：底层数据结构是依然哈希表，只是每个元素又额外的多了一个双向链表的机制记录存储的顺序。
      */
     public static void linkedHashSet() {
-        Collection<String> set = new LinkedHashSet<>();
         //创建默认LinkedHashSet集合
-        LinkedHashSet<String> linkedHashSet = new LinkedHashSet();
+        LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>();
         //指定初始容量创建LinkedHashSet集合
-        LinkedHashSet<String> linkedHashSet_1 = new LinkedHashSet(16);
+        LinkedHashSet<String> linkedHashSet_1 = new LinkedHashSet<>(16);
         //指定初始容量和加载因子创建LinkedHashSet集合
-        LinkedHashSet<String> linkedHashSet_2 = new LinkedHashSet(16, 0.75f);
+        LinkedHashSet<String> linkedHashSet_2 = new LinkedHashSet<>(16, 0.75f);
         //使用集合创建LinkedHashSet集合
-        LinkedHashSet<String> linkedHashSet_3 = new LinkedHashSet(set);
+        LinkedHashSet<String> linkedHashSet_3 = new LinkedHashSet<>(linkedHashSet);
     }
 
     /**
@@ -377,28 +371,27 @@ public class SE_19_Collection {
      * - 注意：如果TreeSet集合存储的对象有实现比较规则，集合也自带比较器，默认使用集合自带的比较器排序。
      */
     public static void treeSet() {
-        Collection<String> set = new TreeSet<>();
         //创建默认TreeSet集合
-        TreeSet<String> treeSet = new TreeSet();
+        TreeSet<String> treeSet = new TreeSet<>();
         //使用集合创建TreeSet集合,默认排序规则
-        TreeSet<String> treeSet_1 = new TreeSet(set);
+        TreeSet<String> treeSet_1 = new TreeSet<>(treeSet);
         //创建TreeSet集合并且指定排序规则
-        TreeSet<String> treeSet_2 = new TreeSet((o1, o2) -> 0);
+        TreeSet<String> treeSet_2 = new TreeSet<>((o1, o2) -> 0);
         //使用指定集合创建新的TreeSet集合,使用指定集合的排序规则
-        TreeSet<String> treeSet_3 = new TreeSet(treeSet);
+        TreeSet<String> treeSet_3 = new TreeSet<>(treeSet);
     }
 
     /**
      * Collections：java.utils.Collections：是集合工具类，Collections并不属于集合，是用来操作集合的工具类
      */
     public static void collections() {
-        List<String> list = new ArrayList();
+        List<String> list = new ArrayList<>();
         //static <T> boolean addAll(Collection<? super T> c, T... elements)将所有指定元素添加到指定集合
         Collections.addAll(list, "张三", "李四", "王二", "麻子", "赵六", "钱七");
         System.out.println("Collections.addAll：" + list);
 
         //static <T> void copy(List<? super T> dest, List<? extends T> src)复制List集合所有元素
-        Vector<String> vector = new Vector();
+        Vector<String> vector = new Vector<>();
         vector.add("法外狂徒");
         //是替换不是追加,所以需要 src.Size() > dest.size()
         Collections.copy(list, vector);

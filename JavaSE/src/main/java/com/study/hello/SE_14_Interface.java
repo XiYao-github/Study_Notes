@@ -57,14 +57,14 @@ public class SE_14_Interface {
      */
     public static void interfaceTest() {
         AB ab = new AB();
-        //公有静态常量
+        // 公有静态常量
         // System.out.println(AB.NUM1); //编译报错
         // System.out.println(AB.NUM2); //编译报错
         System.out.println(AB.NUM3);
         System.out.println(AB.NUM4);
-        //公有抽象方法
+        // 公有抽象方法
         ab.abstractMethod();
-        //公有默认方法
+        // 公有默认方法
         ab.defaultMethod();
     }
 }

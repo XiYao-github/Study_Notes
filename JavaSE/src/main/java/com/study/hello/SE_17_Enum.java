@@ -69,16 +69,16 @@ class Custom_Season {
  * - 使用enum关键字的枚举类，仍然是一个类，所以还是可以实现接口。
  */
 enum Season {
-    //使用关键字 enum 替代 class,可以直接使用 SPRING("春天", "温暖")定义常量(对象)
-    //等价 public static final Season SPRING = new Season("春天", "温暖");
-    //解读：其实是编译器根据实参列表调用构造器创建常量，常量名(实参列表)
-    //如果使用 enum 来实现枚举，要求将定义常量对象，写在其他代码前面，如果有多个常量(对象),使用(,)间隔即可
+    // 使用关键字 enum 替代 class,可以直接使用 SPRING("春天", "温暖")定义常量(对象)
+    // 等价 public static final Season SPRING = new Season("春天", "温暖");
+    // 解读：其实是编译器根据实参列表调用构造器创建常量，常量名(实参列表)
+    // 如果使用 enum 来实现枚举，要求将定义常量对象，写在其他代码前面，如果有多个常量(对象),使用(,)间隔即可
     SPRING("春天", "温暖"),
     AUTUMN("秋天", "凉爽"),
     SUMMER("夏天", "炎热"),
     WINTER("冬天", "寒冷");
-    //如果我们使用的是无参构造器，创建常量对象，则可以省略 ()
-    //SPRING, WINTER, AUTUMN, SUMMER;
+    // 如果我们使用的是无参构造器，创建常量对象，则可以省略 ()
+    // SPRING, WINTER, AUTUMN, SUMMER;
     private String name;
     private String desc;
 

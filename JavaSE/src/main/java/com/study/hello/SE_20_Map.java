@@ -2,7 +2,6 @@ package com.study.hello;
 
 import java.util.*;
 import java.util.function.BiConsumer;
-import java.util.function.Predicate;
 
 /**
  * 哈希表
@@ -17,8 +16,11 @@ import java.util.function.Predicate;
  * HashMap创建过程
  * - 创建默认对象时，初始化加载因子为0.75，数组Node<K,V>[] table为null。
  * - 第一次添加元素时，Node<K,V>[] table数组第一次扩容为默认的16。
- * - 根据Node<K,V>键的哈希值和数组长度求余计算出存储索引(哈希算法)，Hashtable调用key的hashcode获取哈希值，HashMap对key的hashcode进行了二次hash。
- * - 判断索引位置是否为null，如果为null表示没有元素，将Node<K,V>直接存储在索引位置，如果不为null表示存在元素，Node<K,V>的键调用equals()方法和索引位置链表上所有Node<K,V>的键比较(哈希值和内容)，如果存在相同Node<K,V>的键会替换Node<K,V>的值，如果不存在相同Node<K,V>的键将Node<K,V>挂载到索引位置的链表上。
+ * - 根据Node<K,V>键的哈希值和数组长度求余计算出存储索引(哈希算法)。
+ * - Hashtable调用key的hashcode获取哈希值，HashMap对key的hashcode进行了二次hash。
+ * - 判断索引位置是否为null，如果为null表示没有元素，将Node<K,V>直接存储在索引位置。
+ * - 如果不为null表示存在元素，Node<K,V>的键调用equals()方法和索引位置链表上所有Node<K,V>的键比较(哈希值和内容)。
+ * - 如果存在相同Node<K,V>的键会替换Node<K,V>的值，如果不存在相同Node<K,V>的键将Node<K,V>挂载到索引位置的链表上。
  * - JDK7中新元素占据老元素位置，指向老元素(头插法)，JDK8中新元素挂载到老元素下面(尾插法)。
  * - 链表挂载元素过多时，查询性能会降低，JDK8中链表长度超过8且数组长度大于等于64就会自动转换为红黑树。
  * - 数组存储元素为16*0.75=12时，数组会自动扩容，每次扩容为当前容量的2倍。
@@ -118,6 +120,9 @@ public class SE_20_Map {
         // 键找值遍历
         // 先获取Map集合的全部键的Set集合
         // 遍历键的Set集合,然后通过键提取对应值
+        // Set<K> keySet(); 返回一个Set集合，包含所有键
+        // Collection<V> values(); 返回一个Collection集合，包含所有值
+        // V get(Object key); 返回指定键映射的值，否则返回 null
         Set<Integer> keySet = map.keySet();
         // 迭代器
         Iterator<Integer> iterator = keySet.iterator();
@@ -135,6 +140,9 @@ public class SE_20_Map {
         // 键值对遍历
         // 先把Map集合转换成Set集合，Set集合中每个元素都是键值对实体类型了
         // 遍历Set集合，然后提取键以及提取值
+        // Set<Map.Entry<K, V>> entrySet(); 返回一个Set集合，包含所有键值对
+        // K getKey(); 获得键
+        // V getValue(); 获取值
         Set<Map.Entry<Integer, String>> entrySet = map.entrySet();
         // 迭代器
         Iterator<Map.Entry<Integer, String>> entryIterator = entrySet.iterator();
@@ -151,6 +159,7 @@ public class SE_20_Map {
 
         // Lambda表达式
         // 得益于JDK8开始的新技术Lambda表达式，提供了一种更简单、更直接的遍历集合的方式。
+        // default void forEach(BiConsumer<? super K, ? super V> action); 结合lambda遍历Map集合
         // 调用方法实现接口遍历
         map.forEach(new BiConsumer<Integer, String>() {
             @Override
@@ -184,15 +193,14 @@ public class SE_20_Map {
      * - Map集合的每个元素都包含键值，Set集合每个元素只要键数据，不要值数据(默认值为空的Object)。
      */
     public static void hashMap() {
-        Map<Integer, String> map = new HashMap<>();
         //创建默认HashMap集合
-        HashMap<Integer, String> hashMap = new HashMap();
+        HashMap<Integer, String> hashMap = new HashMap<>();
         //指定初始容量创建HashMap集合
-        HashMap<Integer, String> hashMap_1 = new HashMap(16);
+        HashMap<Integer, String> hashMap_1 = new HashMap<>(16);
         //指定初始容量和加载因子创建HashMap集合
-        HashMap<Integer, String> hashMap_2 = new HashMap(16, 0.75f);
+        HashMap<Integer, String> hashMap_2 = new HashMap<>(16, 0.75f);
         //使用集合创建HashMap集合
-        HashMap<Integer, String> hashMap_3 = new HashMap(map);
+        HashMap<Integer, String> hashMap_3 = new HashMap<>(hashMap);
     }
 
     /**
@@ -204,21 +212,20 @@ public class SE_20_Map {
      * - LinkedHashMap会将Key和Value封装到Node实现单链表，然后将Node对象封装到Entry实现双链表并记录存储顺序，最后将Entry对象存储到父类HashMap的Node<K,V>[] table数组中。
      * - Entry对象有两个属性：before(指向上一个节点)、after(指向下一个节点)用于记录存储顺序。
      * - LinkedHashMap有两个属性：LinkedHashMap.Entry<K,V> head(指向双链表首节点)、LinkedHashMap.Entry<K,V> tail(指向双链表尾节点)操作链表。
-     * - 有序：这里的有序指的是保证存储和取出的元素顺序一致
+     * - 有序：这里的有序指的是保证存储和取出的元素顺序一致。
      * - 原理：底层数据结构是依然哈希表，只是每个键值对元素又额外的多了一个双链表的机制记录存储的顺序。
      */
     public static void linkedHashMap() {
-        Map<Integer, String> map = new HashMap<>();
         //创建默认LinkedHashMap集合
-        LinkedHashMap<Integer, String> linkedHashMap = new LinkedHashMap();
+        LinkedHashMap<Integer, String> linkedHashMap = new LinkedHashMap<>();
         //指定初始容量创建LinkedHashMap集合
-        LinkedHashMap<Integer, String> linkedHashMap_1 = new LinkedHashMap(16);
+        LinkedHashMap<Integer, String> linkedHashMap_1 = new LinkedHashMap<>(16);
         //指定初始容量和加载因子创建LinkedHashMap集合
-        LinkedHashMap<Integer, String> linkedHashMap_2 = new LinkedHashMap(16, 0.75f);
+        LinkedHashMap<Integer, String> linkedHashMap_2 = new LinkedHashMap<>(16, 0.75f);
         //指定初始容量和加载因子和排序模式创建LinkedHashMap集合
-        LinkedHashMap<Integer, String> linkedHashMap_3 = new LinkedHashMap(16, 0.75f, false);
+        LinkedHashMap<Integer, String> linkedHashMap_3 = new LinkedHashMap<>(16, 0.75f, false);
         //使用集合创建LinkedHashMap集合
-        LinkedHashMap<Integer, String> linkedHashMap_4 = new LinkedHashMap(map);
+        LinkedHashMap<Integer, String> linkedHashMap_4 = new LinkedHashMap<>(linkedHashMap);
     }
 
     /**
@@ -235,15 +242,14 @@ public class SE_20_Map {
      * - 触发扩容：数组存储元素为(数组长度*加载因子)时，扩容规则：(当前数组长度 << 1) + 1。
      */
     public static void hashTable() {
-        Map<Integer, String> map = new HashMap<>();
         //创建默认Hashtable集合
-        Hashtable<Integer, String> hashtable = new Hashtable();
+        Hashtable<Integer, String> hashtable = new Hashtable<>();
         //指定初始容量创建Hashtable集合
-        Hashtable<Integer, String> hashtable_1 = new Hashtable(11);
+        Hashtable<Integer, String> hashtable_1 = new Hashtable<>(11);
         //指定初始容量和加载因子创建Hashtable集合
-        Hashtable<Integer, String> hashtable_2 = new Hashtable(11, 0.75f);
+        Hashtable<Integer, String> hashtable_2 = new Hashtable<>(11, 0.75f);
         //使用集合创建Hashtable集合
-        Hashtable<Integer, String> hashtable_3 = new Hashtable(map);
+        Hashtable<Integer, String> hashtable_3 = new Hashtable<>(hashtable);
     }
 
     /**
@@ -282,11 +288,10 @@ public class SE_20_Map {
      * - 注意：如果TreeMap集合存储的对象有实现比较规则，集合也自带比较器，默认使用集合自带的比较器排序。
      */
     public static void treeMap() {
-        Map<Integer, String> map = new HashMap<>();
         //创建默认TreeMap集合
         TreeMap<Integer, String> treeMap = new TreeMap();
         //使用集合创建TreeMap集合,默认排序规则
-        TreeMap<Integer, String> treeMap_1 = new TreeMap(map);
+        TreeMap<Integer, String> treeMap_1 = new TreeMap(treeMap);
         //创建TreeMap集合并且指定排序规则
         TreeMap<Integer, String> treeMap_2 = new TreeMap((o1, o2) -> 0);
         //使用指定集合创建新的TreeMap集合,使用指定集合的排序规则

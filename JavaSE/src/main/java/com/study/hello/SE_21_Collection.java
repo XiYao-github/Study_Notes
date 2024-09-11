@@ -95,10 +95,10 @@ public class SE_21_Collection {
         collection.add("王二");
         collection.add("麻子");
         // 使用迭代器方法遍历集合，迭代器在Java中的代表是Iterator，迭代器是集合的专用的遍历方式。
-        // 获取迭代器对象，返回此集合中元素的迭代器，该迭代器对象默认指向当前集合的0索引
+        // 获取迭代器对象，返回此集合中元素的迭代器，该迭代器对象默认指向当前集合的[0]索引
         Iterator<String> iterator = collection.iterator();
         // 调用iterator.next()方法之前必须调用iterator.hasNext()判断是否还有元素
-        // 如果不判断,迭代器取元素越界会出现 NoSuchElementException异常
+        // 如果不判断，迭代器取元素越界会出现 NoSuchElementException异常
         while (iterator.hasNext()) {
             String next = iterator.next();
             if ("张三".equals(next)) {
@@ -118,17 +118,17 @@ public class SE_21_Collection {
         }
         System.out.println(collection); //[李四, 王二, 麻子]
 
-        // 得益于JDK8开始的新技术Lambda表达式，提供了一种更简单、更直接的遍历集合的方式。
-        //调用方法实现接口遍历
+        // 得益于JDK8开始的新技术Lambda表达式，提供了一种更简单，更直接的遍历集合的方式。
+        // 调用方法实现接口遍历
         collection.forEach(new Consumer<String>() {
             @Override
             public void accept(String s) {
                 System.out.println(s);
             }
         });
-        //lambda表达式
+        // lambda表达式
         collection.forEach(s -> System.out.println(s));
-        //简化形式
+        // 简化形式
         collection.forEach(System.out::println);
     }
 
@@ -393,7 +393,7 @@ public class SE_21_Collection {
         //static <T> void copy(List<? super T> dest, List<? extends T> src)复制List集合所有元素
         Vector<String> vector = new Vector<>();
         vector.add("法外狂徒");
-        //是替换不是追加,所以需要 src.Size() > dest.size()
+        //是替换不是追加，所以需要 src.Size() > dest.size()
         Collections.copy(list, vector);
         System.out.println("list：" + list);
         System.out.println("vector：" + vector);

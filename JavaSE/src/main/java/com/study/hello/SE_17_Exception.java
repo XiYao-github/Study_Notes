@@ -26,7 +26,7 @@ package com.study.hello;
  */
 public class SE_17_Exception {
     public static void main(String[] args) throws Exception {
-        Try_Catch_Finally.method(4);
+        Throw.try_catch_finally(4);
     }
 }
 
@@ -54,7 +54,7 @@ public class SE_17_Exception {
  * - 运行时异常编译阶段不会出错，是运行时才可能出错的，所以编译阶段不处理也可以。
  * - 按照规范建议还是处理，默认throws的处理方式，建议在最外层调用处集中捕获处理即可。
  */
-class Try_Catch_Finally {
+class Throw {
     /**
      * throws
      * - 用在方法上，可以将方法内部出现的异常抛出去给本方法的调用者处理。
@@ -65,7 +65,7 @@ class Try_Catch_Finally {
      * - 监视捕获异常，用在方法内部，可以将方法内部出现的异常直接捕获处理。
      * - 发生异常的方法自己独立完成异常地处理，程序可以继续往下执行。
      */
-    public static void method(int n) throws Exception {
+    public static void try_catch_finally(int n) throws Exception {
         try {
             // 如果异常发生了，则异常发生后面的代码不会执行，直接进入到catch的代码块
             // 如果异常没有发生，则顺序执行try的代码块，不会进入到catch的代码块

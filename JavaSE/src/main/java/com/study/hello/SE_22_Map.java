@@ -163,13 +163,13 @@ public class SE_22_Map {
         // 调用方法实现接口遍历
         map.forEach(new BiConsumer<Integer, String>() {
             @Override
-            public void accept(Integer integer, String s) {
-                System.out.print(integer + "=" + s + " ");
+            public void accept(Integer key, String value) {
+                System.out.print(key + "=" + value + " ");
             }
         });
         System.out.println();
         // Lambda表达式
-        map.forEach((integer, s) -> System.out.print(integer + "=" + s + " "));
+        map.forEach((key, value) -> System.out.print(key + "=" + value + " "));
         System.out.println();
     }
 
@@ -185,7 +185,7 @@ public class SE_22_Map {
      * - HashMap底层维护Set<Map.Entry<K,V>> entrySet集合，内容指向Node<K,V>对象的Key和Value，方便管理和调用。
      * - HashMap依赖hashCode方法和equals方法保证键的唯一，如果键要存储的是自定义对象，需要重写hashCode和equals方法。
      * - 默认创建HashMap集合，Node<K,V>[] table数组为null，初始化加载因子为0.75，扩容规则：(当前数组长度 << 1)。
-     * - 默认创建HashMap集合第一次添加元素时，Node<K,V>[] table数组第一次默认扩容为16 。
+     * - 默认创建HashMap集合第一次添加元素时，Node<K,V>[] table数组第一次默认扩容为16。
      * - 触发扩容：数组存储元素为(数组长度*加载因子)时，Node<K,V>链表长度超过8且Node<K,V>[] table数组长度小于等于64时。
      * <p>
      * HashMap与HashSet

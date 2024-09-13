@@ -95,11 +95,12 @@ public class SE_21_Collection {
         collection.add("王二");
         collection.add("麻子");
         // 使用迭代器方法遍历集合，迭代器在Java中的代表是Iterator，迭代器是集合的专用的遍历方式。
-        // 获取迭代器对象，返回此集合中元素的迭代器，该迭代器对象默认指向当前集合的[0]索引
+        // 获取迭代器对象，调用collection.iterator()返回此集合中元素的迭代器，该迭代器对象默认指向当前集合的[0]索引
         Iterator<String> iterator = collection.iterator();
         // 调用iterator.next()方法之前必须调用iterator.hasNext()判断是否还有元素
         // 如果不判断，迭代器取元素越界会出现 NoSuchElementException异常
         while (iterator.hasNext()) {
+            // 调用iterator.next()，获取当前位置的元素，然后自动指向下一个元素.
             String next = iterator.next();
             if ("张三".equals(next)) {
                 // 调用iterator.remove()从底层集合中移除此迭代器返回的最后一个元素

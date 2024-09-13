@@ -94,7 +94,7 @@ public class SE_25_IO {
         while ((len = fisFile.read()) != -1) {
             //写一个字节出去
             fosFile.write(len);
-            System.out.print((char) len); // 控制台为GBK编码，此处会产生乱码
+            System.out.print((char) len); // 汉字存储需要3个字节，此时将一个字节转换为字符，会产生乱码
         }
         // 读取一个字节数组的数据，保存到字节数组中，返回保存到数组的数据长度，没有数据可读返回-1
         while ((len = fisFile.read(buf)) != -1) {

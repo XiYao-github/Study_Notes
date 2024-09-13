@@ -21,7 +21,7 @@ public class SE_24_File {
         // System.out.println("项目文件路径：" + PROPERTY);
         // System.out.println("文件绝对路径：" + ABSOLUTE_PATH);
         // System.out.println("文件相对路径：" + RELATIVE_PATH);
-        fileErgodic();
+        fileMethod();
     }
 
     /**
@@ -73,9 +73,11 @@ public class SE_24_File {
         System.out.println("-----------");
 
         //long lastModified()返回上次修改此抽象路径名表示的文件的时间
-        System.out.println(new SimpleDateFormat("hh:mm:ss").format(new Date(src.lastModified())));
+        long time = src.lastModified();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(sdf.format(time));
 
-        //long length()返回此抽象路径名表示的文件的长度
+        //long length()返回此抽象路径名表示的文件的长度，返回字节个数
         System.out.println(src.length());
         System.out.println("---------------------------------------------");
 
@@ -87,7 +89,7 @@ public class SE_24_File {
         //String getAbsolutePath()返回此抽象路径名的绝对路径名字符串
         System.out.println(fileNew.getAbsolutePath());
 
-        //String getName()返回此抽象路径名表示的文件或目录的名称
+        //String getName()返回此抽象路径名表示的文件或目录的名称（包含后缀）
         System.out.println(fileNew.getName());
 
         //String getParent()返回此抽象路径名父项的路径名字符串，如果此路径名未指定父目录，则返回 null

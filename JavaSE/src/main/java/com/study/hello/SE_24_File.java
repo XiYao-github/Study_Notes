@@ -56,7 +56,7 @@ public class SE_24_File {
         File file = File.createTempFile("abc", ".txt", src);
         System.out.println(file);
 
-        //boolean delete()删除此抽象路径名表示的文件或目录
+        //boolean delete()删除此抽象路径名表示的文件或目录，默认只能删除文件和空文件夹，删除后的文件不会进入回收站。
         System.out.println(file.delete());
 
         //boolean exists()测试此抽象路径名表示的文件或目录是否存在
@@ -116,9 +116,9 @@ public class SE_24_File {
     }
 
     /**
-     * 文件遍历(目录)
+     * 文件遍历(目录)：方法只能遍历当前文件夹对象下的一级文件对象，查询所有需要使用方法递归。
      * - 当文件对象不存在或者代表文件时，返回null，当没有权限访问该文件夹时，返回null，当是一个空文件夹时，返回一个长度为0的数组。
-     * - 当文件对象是一个有内容的文件夹时，将里面所有文件和文件夹的路径放在File数组中返回，包含隐藏文件。
+     * - 当文件对象是一个有内容的文件夹时，将里面所有文件和文件夹的路径放在File数组中返回，包含隐藏文件，但是没有权限访问该文件夹时，返回null。
      * - String[] list() 返回一个字符串数组，用于命名此抽象路径名表示的目录中的文件和目录
      * - String[] list(FilenameFilter filter) 返回一个字符串数组，用于命名由此抽象路径名表示的目录中的文件和目录，以满足指定的过滤器
      * - File[] listFiles() 返回一个抽象路径名数组，表示此抽象路径名表示的目录中的文件

@@ -20,11 +20,21 @@ import java.util.Date;
  * - final Object readObject() 反序列化方法(恢复对象数据的类型和值)：从对象字节输入流的文件中读取一个对象数据恢复成内存中的对象
  */
 public class SE_26_Serialize {
+    public static final String PROPERTY = System.getProperty("user.dir");
+    public static final String ABSOLUTE_PATH = PROPERTY + "\\JavaSE\\src\\main\\java\\com\\study\\hello\\file";
+    public static final String RELATIVE_PATH = "./JavaSE/src/main/java/com/study/hello/file";
+
     public static void main(String[] args) throws Exception {
-        //提供序列化功能
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./src/io/Object.txt"));
-        //提供序反列化功能
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./src/io/Object.txt"));
+        // 创建文件字节输入流
+        String path = RELATIVE_PATH + "/object.txt";
+        File file = new File(path);
+        if (!file.exists()) {
+            System.out.println("新建文件：" + file.createNewFile());
+        }
+        // 提供序列化功能：(对象)->(文件)
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+        // 提供序反列化功能：(文件)->(对象)
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
 
         //将对象写入流中
         oos.writeInt(12345);
@@ -61,14 +71,6 @@ class Animal implements Serializable {
     public Integer getAge() {
         return age;
     }
-
-    @Override
-    public String toString() {
-        return "Animal{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
 }
 
 class Dog extends Animal {
@@ -84,15 +86,5 @@ class Dog extends Animal {
         super(name, age);
         this.t = t;
         this.str = str;
-    }
-
-    @Override
-    public String toString() {
-        return "Dog{" +
-                "name='" + super.getName() + '\'' +
-                ", age=" + super.getAge() +
-                ", t='" + t + '\'' +
-                ", str='" + str + '\'' +
-                '}';
     }
 }

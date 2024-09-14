@@ -1,5 +1,10 @@
 package com.study.hello;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 /**
  * 多线程
  * - 程序是语言编写的指令集合(代码)，进程是运行中的程序(动态过程，存在状态)。
@@ -14,9 +19,9 @@ package com.study.hello;
  */
 public class SE_27_Thread {
     public static void main(String[] args) throws InterruptedException {
-        newThread();
-        threadMethod();
-        synchronizedMethod();
+        // threadMethod();
+        // newThread();
+        // synchronizedMethod();
     }
 
     /**
@@ -25,25 +30,31 @@ public class SE_27_Thread {
      * - 每个线程都有优先权，优先级高的线程优先执行，创建线程的线程和被创建的线程拥有相同优先级。
      * - 每个线程都可能标记为守护进程，并且需要先标记为守护线程，守护线程才能执行。
      * - 按照面向对象的思想，Java虚拟机允许应用程序同时运行多个执行线程，Thread类也提供了实现多线程的方式。
+     * <p>
+     * Thread构造器
+     * - Thread() 创建默认线程对象
+     * - Thread(Runnable target) 创建包含可执行对象的线程实例
+     * - Thread(Runnable target, String name) 创建包含可执行对象，指定名称的线程对象
+     * - Thread(String name) 创建指定名称的线程对象
      */
     public static void threadMethod() throws InterruptedException {
-        Thread thread = new Thread("Test");
+        Thread thread = new Thread("ThreadTest");
         // static native Thread currentThread()返回当前正在执行的线程对象引用
         Thread currentThread = Thread.currentThread();
         System.out.println(currentThread); //Thread[main,5,main]
 
         // static native void sleep(long millis)当前线程停止执行(休眠)指定毫秒数
-        Thread.sleep(10000);
+        // Thread.sleep(10000);
 
         // long getId()返回此Thread的标识符
-        System.out.println(thread.getId()); //13
+        System.out.println(thread.getId()); //20(随机)
 
         // String getName()返回此线程的名称
-        System.out.println(thread.getName()); //Test
+        System.out.println(thread.getName()); //ThreadTest
 
         // void setName(String name)修改此线程的名称
-        thread.setName("threadTest");
-        System.out.println(thread.getName()); //threadTest
+        thread.setName("TestThread");
+        System.out.println(thread.getName()); //TestThread
 
         // int getPriority()返回此线程的优先级(低(1)，中(5)，高(10))
         System.out.println(thread.getPriority()); //5
@@ -124,7 +135,6 @@ public class SE_27_Thread {
         });
         innerThread.start();*/
         Thread lambdaThread = new Thread(() -> mySynchronized.method());
-        lambdaThread.start();
 
         /*Thread innerStaticThread = new Thread(new Runnable() {
             @Override
@@ -134,8 +144,99 @@ public class SE_27_Thread {
         });
         innerStaticThread.start();*/
         Thread lambdaStaticThread = new Thread(() -> MySynchronized.staticMethod());
+
+        lambdaThread.start();
         lambdaStaticThread.start();
     }
+
+    /**
+     * 线程通信
+     * - 所谓线程通信就是线程间相互发送数据，线程间共享一个资源即可实现线程通信。
+     * - 通过共享一个数据的方式实现，根据共享数据的情况决定自己该怎么做，以及通知其他线程怎么做。
+     * - 前提：线程通信通常是在多个线程操作同一个共享资源的时候需要进行通信，且要保证线程安全。
+     * - 注意：方法应该使用当前同步锁对象(this)进行调用。
+     * <p>
+     * Object类等待和唤醒线程的方法
+     * - void wait() 让当前线程等待并释放所占锁，直到另一个线程调用notify()方法或notifyAll()方法
+     * - void notify() 唤醒正在等待的单个线程
+     * - void notifyAll() 唤醒正在等待的所有线程
+     * Thread类等待和唤醒线程的方法
+     * - static native void sleep(long millis)当前线程停止执行(休眠)指定毫秒数
+     * - void join() 等待此线程终止(调用此方法的线程先执行完)
+     * <p>
+     * 线程状态
+     * - 线程的状态：也就是线程从生到死的过程，以及中间经历的各种状态及状态转换，理解线程的状态有利于提升并发编程的理解能力。
+     * - Java总共定义了6种状态，6种状态都定义在Thread类的内部枚举类中。
+     */
+    public static void threadState() {
+        // NEW(新建)：线程刚被创建，但是并未启动
+        Thread.State aNew = Thread.State.NEW;
+        // RUNNABLE(可运行)：线程已经调用了Thread.start()
+        // 等待CPU调度，被挂起(就绪状态)
+        // 获得CPU资源，在运行(运行状态)
+        Thread.State runnable = Thread.State.RUNNABLE;
+        // Blocked(锁阻塞)：
+        // 线程执行时未竞争到锁对象，等待锁对象进入同步块/方法，
+        // 线程调用Object.wait()后重新进入同步块/方法。
+        Thread.State blocked = Thread.State.BLOCKED;
+        // Waiting(无限等待)：
+        // 线程调用了Object.wait()，需要另一个线程对该对象调用Object.notify()/Object.notifyAll()才能够唤醒
+        // 其他线程调用了Thread.join()，需要等待指定线程终止才能够唤醒
+        Thread.State waiting = Thread.State.WAITING;
+        // TimedWaiting(计时等待)：线程调用了Thread.sleep(time)/Object.wait(time)/Thread.join(time)，等待指定时间再次唤醒，但是有超时参数
+        Thread.State timedWaiting = Thread.State.TIMED_WAITING;
+        // Terminated(被终止)：
+        // 已终止线程的线程状态，捕获到异常终止了Thread.run()。
+        // 线程已完成执行，执行完Thread.run()正常退出。
+        Thread.State terminated = Thread.State.TERMINATED;
+    }
+
+    /**
+     * 线程池
+     * - 线程池就是一个可以复用线程的技术，ExecutorService(接口)代表线程池。
+     * - 使用ExecutorService的实现类ThreadPoolExecutor自创建一个线程池对象。
+     * <p>
+     * 线程池方法
+     * - void execute(Runnable command) 执行任务/命令，没有返回值，一般用来执行Runnable任务
+     * - <T> Future<T> submit(Callable<T> task) 执行任务，返回未来任务对象获取线程结果，一般拿来执行Callable任务
+     * - void shutdown() 等待任务执行完毕后关闭线程池
+     * - List<Runnable> shutdownNow() 立刻关闭，停止正在执行的任务，并返回队列中未执行的任务
+     * <p>
+     * 新任务拒绝策略
+     * - ThreadPoolExecutor.AbortPolicy 丢弃任务并抛出RejectedExecutionException异常(默认)
+     * - ThreadPoolExecutor.DiscardPolicy 丢弃任务，但是不抛出异常这是不推荐的做法
+     * - ThreadPoolExecutor.DiscardOldestPolicy 抛弃队列中等待最久的任务然后把当前任务加入队列中
+     * - ThreadPoolExecutor.CallerRunsPolicy 由主线程负责调用任务的run()方法从而绕过线程池直接执行
+     */
+    public static void threadPool() {
+		/*
+			public ThreadPoolExecutor(  int corePoolSize,
+										int maximumPoolSize,
+										long keepAliveTime,
+										TimeUnit unit,
+										BlockingQueue<Runnable> workQueue,
+										ThreadFactory threadFactory,
+										RejectedExecutionHandler handler)
+			参数一：指定线程池的线程数量(核心线程)：corePoolSize      --------> 不能小于0
+			参数二：指定线程池可支持的最大线程数：maximumPoolSize     --------> 最大线程数量 >= 核心线程数量
+			参数三：指定临时线程的最大存活时间：keepAliveTime         --------> 不能小于0，临时线程数 = 最大线程数 - 核心线程数
+			参数四：指定存活时间的单位(秒、分、时、天)：unit           --------> 时间单位
+			参数五：指定任务队列：workQueue                        --------> 不能为null
+			参数六：指定用哪个线程工厂创建线程：threadFactory         --------> 不能为null
+			参数七：指定线程忙，任务满的时候，新任务来了怎么办：handler  --------> 不能为null
+			// 新任务提交时发现核心线程都在忙，任务队列也满了，并且还可以创建临时线程，此时才会创建临时线程。
+			// 核心线程和临时线程都在忙，任务队列也满了，新的任务过来的时候才会开始任务拒绝。
+		 */
+        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
+                3,
+                5,
+                10,
+                TimeUnit.SECONDS,
+                new ArrayBlockingQueue<>(6),
+                Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.AbortPolicy());
+    }
+
 }
 
 class MyThread extends Thread {
@@ -160,7 +261,7 @@ class MyRunnable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("实现Runnable接口，重写run()方法！！！");
+        System.out.println("实现Runnable接口，重写run方法！！！");
     }
 }
 

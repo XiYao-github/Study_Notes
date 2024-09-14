@@ -43,7 +43,8 @@ public class SE_25_IO {
         // bis_bos();
         // fr_fw();
         // br_bw();
-        ps_pw();
+        // ps_pw();
+        // isr_osw();
     }
 
     /**
@@ -412,6 +413,8 @@ public class SE_25_IO {
 
 
         // 打印流直接通向文件对象
+        // 高级流是不能追加写入的，追加写入需要低级流fos添加可追加属性
+        // PrintWriter pw = new PrintWriter(new FileOutputStream(file, true), true);
         PrintWriter pw_1 = new PrintWriter(file);
         // 打印流直接通向文件对象，指定字符集
         PrintWriter pw_2 = new PrintWriter(file, "UTF-8");
@@ -457,6 +460,11 @@ public class SE_25_IO {
         // public final static InputStream in = null;
         // public final static PrintStream out = null;
         // public final static PrintStream err = null;
+        // 使用示例
+        // byte[] buf = new byte[1024];
+        // int len = System.in.read(buf);
+        // String str = new String(buf, 0, len, StandardCharsets.UTF_8);
+        // System.out.print(str);
 
         // 字节输入流(InputStream) -> 字符输入流(Reader)：默认编码(几乎不用)
         // BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -468,9 +476,9 @@ public class SE_25_IO {
         // 字节输出流(OutputStream) -> 字符输入流(Writer)：指定编码(重点)
         BufferedWriter outCharset = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8));
         // 读取键盘输入的一行内容，输出到显示器上
-        outCharset.write(inCharset.readLine());// hello world!!!
+        String line = inCharset.readLine();
+        outCharset.write(line);
         outCharset.flush();
-
         // 关闭资源
         outCharset.close();
         inCharset.close();

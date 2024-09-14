@@ -1,8 +1,6 @@
 package com.study.hello;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class SE_04_Array {
 

@@ -216,7 +216,7 @@ public class SE_25_IO {
      * - 字节流适合做一切文件数据的拷贝(音频，视频，文本)，但不适合读取中文内容输出。
      * - 字符流适合做文本文件的操作(读，写)。
      */
-    public static void try_with_resource() throws IOException {
+    public static void try_with_resource() {
         /*try {
             //监视可能出现异常的代码！
         } catch (Exception e) {

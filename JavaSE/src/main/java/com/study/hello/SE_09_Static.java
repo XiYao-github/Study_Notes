@@ -43,9 +43,9 @@ public class SE_09_Static {
         // 4.父类的构造方法
         // 5.子类的普通属性/代码块初始化
         // 6.子类的构造方法
-        // Parent parent = new Parent(); //调用：1,3,4
-        // Sub sub = new Sub(); //调用：1,2,3,4,5,6
-        Sub.study(); //调用：1,2
+        // Parent_Main parent = new Parent_Main(); //调用：1,3,4
+        // Sub_Main sub = new Sub_Main(); //调用：1,2,3,4,5,6
+        Sub_Main.study(); //调用：1,2
     }
 }
 
@@ -111,7 +111,7 @@ class Static {
     }
 }
 
-class Parent {
+class Parent_Main {
     private static String name;
     private String type;
 
@@ -125,14 +125,14 @@ class Parent {
         System.out.println("3." + type + "的普通属性/代码块初始化！！！");
     }
 
-    public Parent() {
+    public Parent_Main() {
         //super();
         //会在super()后隐含的调用本类代码块
         System.out.printf("4.%s(%s)的构造方法初始化！！！\n", name, type);
     }
 }
 
-class Sub extends Parent {
+class Sub_Main extends Parent_Main {
     private static String name;
     private String type;
 
@@ -146,7 +146,7 @@ class Sub extends Parent {
         System.out.println("5." + type + "的普通属性/代码块初始化！！！");
     }
 
-    public Sub() {
+    public Sub_Main() {
         //super();
         //会在super()后隐含的调用本类代码块
         System.out.printf("6.%s(%s)的构造方法初始化！！！\n", name, type);

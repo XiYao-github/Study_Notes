@@ -49,8 +49,8 @@ public class SE_26_Serialize {
         oos.writeInt(12345);
         oos.writeObject("Today");
         oos.writeObject(new Date());
-        oos.writeObject(new Animal("动物", null));
-        oos.writeObject(new Dog("Dog", 5, "transient", "str"));
+        oos.writeObject(new Animal_Serialize("动物", null));
+        oos.writeObject(new Dog_Serialize("Dog_Serialize", 5, "transient", "str"));
         //从流中读取对象
         System.out.println(ois.readInt());
         System.out.println(ois.readObject());
@@ -107,11 +107,11 @@ public class SE_26_Serialize {
     }
 }
 
-class Animal implements Serializable {
+class Animal_Serialize implements Serializable {
     private String name;
     private Integer age;
 
-    Animal(String name, Integer age) {
+    Animal_Serialize(String name, Integer age) {
         this.name = name;
         this.age = age;
     }
@@ -126,23 +126,23 @@ class Animal implements Serializable {
 
     @Override
     public String toString() {
-        return "Animal{" +
+        return "Animal_Serialize{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 '}';
     }
 }
 
-class Dog extends Animal {
+class Dog_Serialize extends Animal_Serialize {
     private transient String t;
     private static String s = "dog";
     private String str;
 
-    Dog(String name, Integer age) {
+    Dog_Serialize(String name, Integer age) {
         super(name, age);
     }
 
-    public Dog(String name, Integer age, String t, String str) {
+    public Dog_Serialize(String name, Integer age, String t, String str) {
         super(name, age);
         this.t = t;
         this.str = str;
@@ -150,7 +150,7 @@ class Dog extends Animal {
 
     @Override
     public String toString() {
-        return "Dog{" +
+        return "Dog_Serialize{" +
                 "name='" + super.getName() + '\'' +
                 ", age=" + super.getAge() +
                 ", t='" + t + '\'' +

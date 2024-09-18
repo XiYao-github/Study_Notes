@@ -37,7 +37,7 @@ public class SE_27_Thread {
      * - Thread(Runnable target, String name) 创建包含可执行对象，指定名称的线程对象
      * - Thread(String name) 创建指定名称的线程对象
      */
-    public static void threadMethod() throws InterruptedException {
+    public static void threadMethod() {
         Thread thread = new Thread("ThreadTest");
         // static native Thread currentThread()返回当前正在执行的线程对象引用
         Thread currentThread = Thread.currentThread();

@@ -11,18 +11,6 @@ package com.study.hello;
  * - @Deprecated：用于表示某个程序元素(类，方法等)已过时
  * - @SuppressWarnings：抑制编译器警告，通常放置语句，方法，类上
  * <p>
- * 注解的解析
- * - 注解的操作中经常需要进行解析，注解的解析就是判断是否存在注解，存在注解就解析出内容。
- * - Annotation：注解的顶级接口，注解都是Annotation类型的对象。
- * - AnnotatedElement：该接口定义了与注解解析相关的解析方法。
- * - Class，Method，Field，Constructor，都实现了AnnotatedElement接口都拥有解析注解的能力。
- * <p>
- * 解析注解技巧
- * - 注解在哪个成分上，我们就先拿哪个成分对象。
- * - 比如注解作用在类上，则要该类的Class对象，再来拿上面的注解。
- * - 比如注解作用在成员方法上，则要获得该成员方法对应的Method对象，再来拿上面的注解。
- * - 比如注解作用在成员变量上，则要获得该成员变量对应的Field对象，再来拿上面的注解。
- * <p>
  * 内置的注解
  * - Java 定义了一套注解，共有 7 个，3 个在 java.lang 中，剩下 4 个在 java.lang.annotation 中。
  * - 作用在代码的注解是
@@ -41,20 +29,18 @@ package com.study.hello;
  * <p>
  * 元注解
  * - @Retention 定义了该注解的生命周期，作用就是说明这个注解的存活时间。
- * - RetentionPolicy.SOURCE: 注解只在源码阶段保留，在编译器完整编译之后，它将被丢弃忽视；例：@Override, @SuppressWarnings
- * - RetentionPolicy.CLASS: 注解只被保留到编译进行的时候，它并不会被加载到 JVM 中；
- * - RetentionPolicy.RUNTIME: 注解可以保留到程序运行的时候，它会被加载进入到 JVM 中，所以在程序运行时可以获取到它们；
- * <p>
+ * -- RetentionPolicy.SOURCE: 注解只在源码阶段保留，在编译器完整编译之后，它将被丢弃忽视；例：@Override, @SuppressWarnings
+ * -- RetentionPolicy.CLASS: 注解只被保留到编译进行的时候，它并不会被加载到 JVM 中；
+ * -- RetentionPolicy.RUNTIME: 注解可以保留到程序运行的时候，它会被加载进入到 JVM 中，所以在程序运行时可以获取到它们；
  * - @Target 表示该注解用于什么地方，可以理解为这个注解就被限定了运用的场景。
- * - ElementType.CONSTRUCTOR: 对构造方法进行注解；
- * - ElementType.ANNOTATION_TYPE: 对注解进行注解；
- * - ElementType.FIELD: 对属性、成员变量、成员对象（包括 enum 实例）进行注解；
- * - ElementType.LOCAL_VARIABLE: 对局部变量进行注解；
- * - ElementType.METHOD: 对方法进行注解；
- * - ElementType.PACKAGE: 对包进行注解；
- * - ElementType.PARAMETER: 对描述参数进行注解；
- * - ElementType.TYPE: 对类、接口、枚举进行注解；
- *
+ * -- ElementType.CONSTRUCTOR: 对构造方法进行注解；
+ * -- ElementType.ANNOTATION_TYPE: 对注解进行注解；
+ * -- ElementType.FIELD: 对属性、成员变量、成员对象（包括 enum 实例）进行注解；
+ * -- ElementType.LOCAL_VARIABLE: 对局部变量进行注解；
+ * -- ElementType.METHOD: 对方法进行注解；
+ * -- ElementType.PACKAGE: 对包进行注解；
+ * -- ElementType.PARAMETER: 对描述参数进行注解；
+ * -- ElementType.TYPE: 对类、接口、枚举进行注解；
  * - @Documented 是一个简单的标记注解，表示是否将注解信息添加在 Java 文档，即 Javadoc 中。
  * - @Inherited 指继承。如果一个超类带有 @Inherited 注解，它的子类如果没有被任何注解应用的话，那么这个子类就继承了超类的注解。
  * - @Repeatable 是 Java 8 中加入的，是指可重复的意思。通常使用 @Repeatable 的时候指注解的值可以同时取多个
@@ -87,6 +73,24 @@ public class SE_30_Annotation {
     public double score();
 }
 
+/**
+ * 注解的解析
+ * - 注解的操作中经常需要进行解析，注解的解析就是判断是否存在注解，存在注解就解析出内容。
+ * - Annotation：注解的顶级接口，注解都是Annotation类型的对象。
+ * - AnnotatedElement：该接口定义了与注解解析相关的解析方法。
+ * - Class，Method，Field，Constructor，都实现了AnnotatedElement接口都拥有解析注解的能力。
+ * <p>
+ * 注解方法
+ * - Annotation[] getDeclaredAnnotations() 获得当前对象上使用的所有注解，返回注解数组
+ * - T getDeclaredAnnotation(Class<T> annotationClass) 根据注解类型获得对应注解对象
+ * - boolean isAnnotationPresent(Class<Annotation> annotationClass) 判断当前对象是否使用了指定的注解，如果使用了则返回true，否则false
+ * <p>
+ * 解析注解技巧
+ * - 注解在哪个成分上，我们就先拿哪个成分对象。
+ * - 比如注解作用在类上，则要该类的Class对象，再来拿上面的注解。
+ * - 比如注解作用在成员方法上，则要获得该成员方法对应的Method对象，再来拿上面的注解。
+ * - 比如注解作用在成员变量上，则要获得该成员变量对应的Field对象，再来拿上面的注解。
+ */
 @interface Teacher {
     public String name();
 
@@ -97,12 +101,12 @@ public class SE_30_Annotation {
 class StudentA {
 }
 
-//value属性，如果只有一个value属性的情况下，使用value属性的时候可以省略value名称不写
+// value属性，如果只有一个value属性的情况下，使用value属性的时候可以省略value名称不写
 @Student(score = 99.66)
 class StudentB {
 }
 
-//但是如果有多个属性，且多个属性没有默认值，那么value名称是不能省略的
+// 但是如果有多个属性，且多个属性没有默认值，那么value名称是不能省略的
 @Teacher(name = "李四", age = 30)
 class StudentC {
 }

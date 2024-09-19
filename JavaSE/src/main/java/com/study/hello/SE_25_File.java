@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
  * - File类的对象代表操作系统的文件(文件、文件夹)，File类在java.io.File包下，围绕文件的操作。
  * - File类提供了诸如：创建文件对象(文件)，获取文件信息(大小、修改时间)、删除文件、创建文件夹等功能。
  */
-public class SE_24_File {
+public class SE_25_File {
     public static final String PROPERTY = System.getProperty("user.dir");
     public static final String ABSOLUTE_PATH = PROPERTY + "\\JavaSE\\src\\main\\java\\com\\study\\hello\\file";
     public static final String RELATIVE_PATH = "./JavaSE/src/main/java/com/study/hello/file";

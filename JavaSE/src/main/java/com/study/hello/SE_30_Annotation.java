@@ -1,5 +1,10 @@
 package com.study.hello;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  * 注解
  * - Java注解(Annotation)又称Java标注，也被称为元数据(Metadata)，JDK5引入的一种注释机制。
@@ -33,14 +38,14 @@ package com.study.hello;
  * -- RetentionPolicy.CLASS: 注解只被保留到编译进行的时候，它并不会被加载到 JVM 中；
  * -- RetentionPolicy.RUNTIME: 注解可以保留到程序运行的时候，它会被加载进入到 JVM 中，所以在程序运行时可以获取到它们；
  * - @Target 表示该注解用于什么地方，可以理解为这个注解就被限定了运用的场景。
- * -- ElementType.CONSTRUCTOR: 对构造方法进行注解；
- * -- ElementType.ANNOTATION_TYPE: 对注解进行注解；
- * -- ElementType.FIELD: 对属性、成员变量、成员对象（包括 enum 实例）进行注解；
- * -- ElementType.LOCAL_VARIABLE: 对局部变量进行注解；
- * -- ElementType.METHOD: 对方法进行注解；
- * -- ElementType.PACKAGE: 对包进行注解；
- * -- ElementType.PARAMETER: 对描述参数进行注解；
  * -- ElementType.TYPE: 对类、接口、枚举进行注解；
+ * -- ElementType.FIELD: 对属性、成员变量、成员对象（包括 enum 实例）进行注解；
+ * -- ElementType.METHOD: 对方法进行注解；
+ * -- ElementType.PARAMETER: 对描述参数进行注解；
+ * -- ElementType.CONSTRUCTOR: 对构造方法进行注解；
+ * -- ElementType.LOCAL_VARIABLE: 对局部变量进行注解；
+ * -- ElementType.ANNOTATION_TYPE: 对注解进行注解；
+ * -- ElementType.PACKAGE: 对包进行注解；
  * - @Documented 是一个简单的标记注解，表示是否将注解信息添加在 Java 文档，即 Javadoc 中。
  * - @Inherited 指继承。如果一个超类带有 @Inherited 注解，它的子类如果没有被任何注解应用的话，那么这个子类就继承了超类的注解。
  * - @Repeatable 是 Java 8 中加入的，是指可重复的意思。通常使用 @Repeatable 的时候指注解的值可以同时取多个
@@ -64,6 +69,8 @@ public class SE_30_Annotation {
 /*public @interface 注解名称 {
 	public 属性类型 属性名() default 默认值;
 }*/
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.SOURCE)
 @interface Student {
     // 注解只有成员变量，没有方法，注解的成员变量在注解的定义中以无形参的方法形式来声明，其方法名定义了该成员变量的名字，其返回值定义了该成员变量的类型。
     public String name() default "张三";

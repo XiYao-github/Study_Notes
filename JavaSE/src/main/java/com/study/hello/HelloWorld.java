@@ -24,15 +24,13 @@ package com.study.hello;
  * SE_21_Collection
  * SE_22_Map
  * SE_23_Stream(流)
- * SE_24_File(文件)
- * SE_25_IO(io流)
- * SE_26_Serialize(序列化)
- * SE_27_Properties(配置文件)
- * SE_28_Thread(多线程)
- * SE_29_Socket(网络通信)
- * SE_30_Reflect(反射)
- * SE_31_Annotation(注解)
- * SE_32_optional
+ * SE_24_optional
+ * SE_25_File(文件)
+ * SE_26_IO(io流)
+ * SE_27_Thread(多线程)
+ * SE_28_Socket(网络通信)
+ * SE_29_Reflect(反射)
+ * SE_30_Annotation(注解)
  */
 public class HelloWorld {
     /**

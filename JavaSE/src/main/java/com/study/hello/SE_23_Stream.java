@@ -55,6 +55,7 @@ public class SE_23_Stream {
      * Stream(中间操作方法)
      * - 中间方法也称为非终结方法，调用完成后返回新的Stream流可以继续使用，支持链式编程。
      * - 在Stream流中无法直接修改集合、数组中的数据。
+     * - <R> Stream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper);
      * - static <T> Stream<T> concat(Stream<? extends T> a, Stream<? extends T> b) 合并两个流的数据
      * - Stream<T> filter(Predicate<? super T> predicate) 过滤满足条件的数据
      * - Stream<T> limit(long maxSize) 获取前几个元素
@@ -105,7 +106,11 @@ public class SE_23_Stream {
      * Stream(终结操作方法)
      * - 终结方法后流不可以继续使用，非终结方法会返回新的流，支持链式编程。
      * - 终结操作方法，调用完成后流就无法继续使用了，原因是不会返回Stream了。
-     * - void forEachOrdered(Consumer<? super T> action) 遍历操作
+     * - boolean allMatch(Predicate<? super T> predicate) 检查是否匹配所有元素
+     * - boolean anyMatch(Predicate<? super T> predicate) 检查是否至少匹配一个元素
+     * - boolean noneMatch(Predicate<? super T> predicate) 检查是否没有匹配所有元素
+     * - Optional<T> findFirst() 返回第一个元素
+     * - Optional<T> findAny() 返回当前流中的任意元素
      * - long count() 返回元素数量
      * - Optional<T> max(Comparator<? super T> comparator) 返回最大元素
      * - Optional<T> min(Comparator<? super T> comparator) 返回最小元素
@@ -126,7 +131,10 @@ public class SE_23_Stream {
      * - 收集Stream流的含义：就是把Stream流操作后的结果数据转回到集合或者数组中去。
      * - Stream流：方便操作集合/数组的手段，操作的结果数据最终要恢复到集合/数组中去。
      * - <R, A> R collect(Collector<? super T, A, R> collector) 收集Stream流
-     * <p>
+     * 归约
+     * - T reduce(T identity, BinaryOperator<T> accumulator);
+     * - Optional<T> reduce(BinaryOperator<T> accumulator);
+     * - <U> U reduce(U identity, BiFunction<U, ? super T, U> accumulator, BinaryOperator<U> combiner);
      * Collectors提供收集方法
      * - static <T> Collector<T, ?, List<T>> toList() 将元素收集到List集合
      * - static <T> Collector<T, ?, Set<T>> toSet() 将元素收集到Set集合

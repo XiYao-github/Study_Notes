@@ -4,6 +4,10 @@ import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 网络通信
@@ -194,6 +198,15 @@ class SocketClient {
  * - Socket accept() 侦听对此套接字的连接并接受它
  */
 class SocketServer {
+    private static final ThreadPoolExecutor POOL = new ThreadPoolExecutor(
+            3,
+            5,
+            10,
+            TimeUnit.SECONDS,
+            new ArrayBlockingQueue<>(6),
+            Executors.defaultThreadFactory(),
+            new ThreadPoolExecutor.AbortPolicy());
+
     public static void main(String[] args) throws Exception {
         // 创建指定端口的服务端
         ServerSocket serverSocket = new ServerSocket(7777);
@@ -203,7 +216,8 @@ class SocketServer {
             Socket socket = serverSocket.accept();
             System.out.println(socket.getPort() + "成功连接！！！");
             // 启动一个线程接收信息
-            new Thread(new ServerTasks(socket)).start();
+            //new Thread(new ServerTasks(socket)).start();
+            POOL.execute(new ServerTasks(socket));
         }
     }
 }

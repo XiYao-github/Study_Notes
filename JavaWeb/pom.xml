@@ -4,6 +4,28 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+<!--
+Maven模型
+* 官网 ：http://maven.apache.org/
+* 项目对象模型POM(Project Object Model)
+* 依赖管理模型(Dependency)
+* 插件(Plugin)
+
+Maven坐标
+* 坐标官网：https://mvnrepository.com/
+* Maven中的坐标是资源的唯一标识，使用坐标来定义项目或引入项目中需要的依赖，资源可以是插件、依赖、项目。
+* groupId：定义当前Maven项目隶属组织名称(通常是域名反写，例如：com.mysql)
+* artifactId：定义当前Maven项目名称(通常是模块名称，例如：mysql-connector-java)
+* version：定义当前项目版本号
+* scope：依赖范围
+
+依赖范围
+* compile：作用于编译环境、测试环境、运行环境。(默认就是compile，大部分jar包都是使用默认值)
+* test：作用于测试环境。(典型的就是Junit坐标，只有测试时加载jar包)
+* provided：作用于编译环境、测试环境。
+* runtime：作用于测试环境、运行环境。
+-->
+
     <parent>
         <artifactId>study_notes</artifactId>
         <groupId>com.study</groupId>
@@ -31,6 +53,29 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--druid-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.2.6</version>
+        </dependency>
+        <!--mysql-->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!--mybatis-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.5</version>
+        </dependency>
+        <!--test-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
 

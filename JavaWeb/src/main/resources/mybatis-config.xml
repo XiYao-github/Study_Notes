@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <typeAliases>
+        <!--name属性的值是实体类所在包-->
+        <!--用于简化xml映射配置文件中resultType属性值的编写-->
+        <package name="com.study.hello.mybatis.entity"/>
+    </typeAliases>
+    <!--
+    environments：配置数据库连接环境信息。可以配置多个environment，通过default属性切换不同的environment
+    -->
+    <environments default="dev">
+        <environment id="dev">
+            <!--使用JDBC事务管理-->
+            <!--如果使用 Spring + MyBatis，则没有必要配置事务管理器，因为 Spring 模块自带的管理器会覆盖配置。-->
+            <!--type="[JDBC|MANAGED]"-->
+            <transactionManager type="JDBC"/>
+            <!--数据库连接实例-->
+            <!--type="[UNPOOLED|POOLED|JNDI]"-->
+            <dataSource type="POOLED">
+                <!--数据库连接信息-->
+                <property name="driver" value="${driverClassName}"/>
+                <!--
+                    useSSL:关闭SSL安全连接 性能更高
+                    useServerPrepStmts:开启预编译功能
+                    &amp;等同于符号"&",xml配置文件中不能直接写"&"符号
+                -->
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!-- 使用相对于类路径的资源引用 -->
+        <!--<mapper resource="com/study/hello/mybatis/mapper/StudentMapper.xml"/>-->
+        <!-- 使用映射器接口实现类的完全限定类名 -->
+        <!--<mapper class="com.study.hello.mybatis.mapper.StudentMapper"/>-->
+        <!-- 将包内的映射器接口实现全部注册为映射器 -->
+        <package name="com.study.hello.mybatis.mapper"/>
+    </mappers>
+</configuration>

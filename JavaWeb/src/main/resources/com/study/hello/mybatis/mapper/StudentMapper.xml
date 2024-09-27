@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace:名称空间。必须是对应接口的全限定名
+-->
+<mapper namespace="com.study.hello.mybatis.mapper.StudentMapper">
+    <!--结果映射：(实体类属性名)和(数据库表列名)不一致，返回结果值不能自动封装数据-->
+    <!--1. 起别名：保持属性名和列名别名一致-->
+    <select id="queryList_1" resultType="StudentEntity">
+        select id, user_name as userName, user_phone as userPhone, user_age as userAge
+        from student;
+    </select>
+
+    <!--2. sql片段：定义<sql>片段，提升复用性-->
+    <!--
+        sql：定义sql片段，${}占位符参数化
+            id：结果映射唯一标识
+        include：导入sql片段
+            refid：引用的sql片段唯一标识
+        property：占位符属性
+            name：占位符名称
+            value：占位符值
+    -->
+    <sql id="student_sql">
+        select ${columns}, user_name as userName, user_phone as userPhone, user_age as userAge
+        from ${table}
+    </sql>
+    <!--定义sql语句，导入sql片段-->
+    <select id="queryList_2" resultType="StudentEntity">
+        <include refid="student_sql">
+            <property name="columns" value="id"/>
+            <property name="table" value="student"/>
+        </include>
+    </select>
+
+    <!--3. resultMap：定义<resultMap>结果集，完成不一致的属性名和列名的映射-->
+    <!--
+        resultMap：结果映射
+            id：结果映射唯一标识
+            type：类的完全限定名，或者一个类型别名(int)。
+        id：主键字段映射
+        result：普通映射字段
+            column: 表列名
+            property: 实体类属性名
+            jdbcType：JDBC所支持的类型，通常不会配置。
+            javaType：类的全限定名或一个类型别名。除非映射到Map需要指定，通常不会配置。
+            typeHandler：类型处理器，属性值通常是类的全限定名或一个类型别名，通常不会配置。
+    -->
+    <resultMap id="studentResultMap" type="StudentEntity">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_phone" property="userPhone"/>
+        <result column="user_age" property="userAge"/>
+
+        <!--association：对象标签，用法与ResultMap基本一致-->
+        <!--1.内部嵌套写法-->
+        <association property="studentA" javaType="StudentEntity">
+            <id property="id" column="id"/>
+            <result column="user_name" property="userName"/>
+            <result column="user_phone" property="userPhone"/>
+            <result column="user_age" property="userAge"/>
+        </association>
+        <!--2.外部嵌套写法-->
+        <association property="studentB" javaType="StudentEntity" resultMap="objResult"/>
+    </resultMap>
+
+    <resultMap id="objResult" type="StudentEntity">
+        <id property="id" column="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_phone" property="userPhone"/>
+        <result column="user_age" property="userAge"/>
+    </resultMap>
+
+    <!--定义sql语句，使用resultMap映射-->
+    <select id="queryList_3" resultMap="studentResultMap">
+        select *
+        from student;
+    </select>
+
+    <select id="queryList" resultType="com.study.hello.mybatis.entity.StudentEntity">
+        select id, user_name as userName, user_phone as userPhone, user_age as userAge
+        from student;
+    </select>
+
+    <!--
+        select：查询
+            id：结果映射唯一标识
+            parameterType：语句参数的完全限定名或别名。
+            resultType：语句返回的完全限定名或别名，不能和resultMap同时使用。
+            resultMap：返回的结果集映射，不能和resultType同时使用。
+        mybatis占位符：
+            #{}：同理PreparedStatement，执行SQL时，会将#{}占位符替换为？然后设置转义后的参数值。
+            ${}：同理Statement，执行SQL时，直接拼接SQL，会存在SQL注入问题。
+    -->
+    <select id="queryInfo" parameterType="long" resultType="com.study.hello.mybatis.entity.StudentEntity">
+        select id, user_name as userName, user_phone as userPhone, user_age as userAge
+        from student
+        where id = #{id};
+    </select>
+
+    <!--
+        Mybatis动态SQL：
+            if 属性：条件判断 -> test 属性：逻辑表达式
+            例：<if test="id == 1"> </if>
+
+            choose：相当于 switch
+            when：相当于 case -> test 属性：逻辑表达式
+            otherwise：相当于 default
+            例：
+            <choose>
+                <when test="id == 1"> </when>
+                <when test="id == 2"> </when>
+                <otherwise> </otherwise>
+            </choose>
+
+            trim (where, set)
+            <trim prefix="WHERE" prefixOverrides="AND |OR ">
+              ...
+            </trim>
+            <trim prefix="SET" suffixOverrides=",">
+              ...
+            </trim>
+
+            foreach：用来迭代任何可迭代的对象（如数组，集合）
+                collection 属性：mybatis会将数组参数，封装为一个Map集合。
+                    默认：array = 数组
+                    使用@Param注解改变map集合的默认key的名称
+                item 属性：本次迭代获取到的元素。
+                separator 属性：集合项迭代之间的分隔符。foreach标签不会错误地添加多余的分隔符。也就是最后一次迭代不会加分隔符。
+                open 属性：该属性值是在拼接SQL语句之前拼接的语句，只会拼接一次
+                close 属性：该属性值是在拼接SQL语句拼接后拼接的语句，只会拼接一次
+                例：
+                <foreach collection="array" item="id" separator="," open="(" close=")" >
+                    #{id}
+                </foreach>
+    -->
+
+</mapper>

@@ -1,11 +1,12 @@
 package com.study.hello.mybatis.entity;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Data
+@Accessors(chain = true)
 public class StudentEntity implements Serializable {
     private Long id;
     private String userPhone;
@@ -17,6 +18,6 @@ public class StudentEntity implements Serializable {
     // private Long updatedBy;
     // private LocalDateTime updatedTime;
     // private Boolean delFlag;
-    private StudentEntity studentA;
-    private StudentEntity studentB;
+    // private StudentEntity studentA;
+    // private StudentEntity studentB;
 }

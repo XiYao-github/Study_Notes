@@ -38,7 +38,7 @@
         resultMap：结果映射
             id：结果映射唯一标识
             type：类的完全限定名，或者一个类型别名(int)。
-        id：主键字段映射
+        id：主键字段映射，通常不会配置。
         result：普通映射字段
             column: 表列名
             property: 实体类属性名
@@ -52,24 +52,24 @@
         <result column="user_phone" property="userPhone"/>
         <result column="user_age" property="userAge"/>
 
-        <!--association：对象标签，用法与ResultMap基本一致-->
+        <!--association：对象标签，用法与ResultMap基本一致，一般解析链表查询字段-->
         <!--1.内部嵌套写法-->
-        <association property="studentA" javaType="StudentEntity">
+        <!--<association property="studentA" javaType="StudentEntity">
             <id property="id" column="id"/>
             <result column="user_name" property="userName"/>
             <result column="user_phone" property="userPhone"/>
             <result column="user_age" property="userAge"/>
-        </association>
+        </association>-->
         <!--2.外部嵌套写法-->
-        <association property="studentB" javaType="StudentEntity" resultMap="objResult"/>
+        <!--<association property="studentB" javaType="StudentEntity" resultMap="objResult"/>-->
     </resultMap>
 
-    <resultMap id="objResult" type="StudentEntity">
+    <!--<resultMap id="objResult" type="StudentEntity">
         <id property="id" column="id"/>
         <result column="user_name" property="userName"/>
         <result column="user_phone" property="userPhone"/>
         <result column="user_age" property="userAge"/>
-    </resultMap>
+    </resultMap>-->
 
     <!--定义sql语句，使用resultMap映射-->
     <select id="queryList_3" resultMap="studentResultMap">
@@ -77,8 +77,8 @@
         from student;
     </select>
 
-    <select id="queryList" resultType="com.study.hello.mybatis.entity.StudentEntity">
-        select id, user_name as userName, user_phone as userPhone, user_age as userAge
+    <select id="queryList" resultMap="studentResultMap">
+        select *
         from student;
     </select>
 
@@ -91,20 +91,32 @@
         mybatis占位符：
             #{}：同理PreparedStatement，执行SQL时，会将#{}占位符替换为？然后设置转义后的参数值。
             ${}：同理Statement，执行SQL时，直接拼接SQL，会存在SQL注入问题。
+        xml转义字符：
+            &lt;："<"符号在xml中有特殊含义，xml文件需要使用 &lt; 代替 <
+            &gt;：">"符号在xml中有特殊含义，xml文件需要使用 &gt; 代替 >
     -->
-    <select id="queryInfo" parameterType="long" resultType="com.study.hello.mybatis.entity.StudentEntity">
-        select id, user_name as userName, user_phone as userPhone, user_age as userAge
+    <select id="queryInfo" parameterType="long" resultMap="studentResultMap">
+        select *
         from student
         where id = #{id};
     </select>
 
+
+    <select id="queryCondition" resultMap="studentResultMap">
+        select *
+        from student
+        where id = #{id}
+          and user_name like #{entity.userName}
+          and user_phone like #{map.userPhone};
+    </select>
+
     <!--
         Mybatis动态SQL：
-            if 属性：条件判断 -> test 属性：逻辑表达式
+            if：条件判断 -> test：逻辑表达式
             例：<if test="id == 1"> </if>
 
             choose：相当于 switch
-            when：相当于 case -> test 属性：逻辑表达式
+            when：相当于 case -> test：逻辑表达式
             otherwise：相当于 default
             例：
             <choose>
@@ -113,26 +125,114 @@
                 <otherwise> </otherwise>
             </choose>
 
-            trim (where, set)
-            <trim prefix="WHERE" prefixOverrides="AND |OR ">
-              ...
-            </trim>
-            <trim prefix="SET" suffixOverrides=",">
-              ...
-            </trim>
+            where：替换where关键字，因为(if)和(choose)编写不规范可能有两种情况：
+                1.where语句后没有能匹配的语句，导致条件语句为空报错：select * from student where;
+                2.where语句后只能匹配部分语句，导致直接拼接and或or语句报错：select * from student where or id = 1;
+            where元素会动态的去掉子句开头前的“AND”或“OR”，如果没有能匹配的参数则不加where关键字。
 
-            foreach：用来迭代任何可迭代的对象（如数组，集合）
-                collection 属性：mybatis会将数组参数，封装为一个Map集合。
-                    默认：array = 数组
-                    使用@Param注解改变map集合的默认key的名称
-                item 属性：本次迭代获取到的元素。
-                separator 属性：集合项迭代之间的分隔符。foreach标签不会错误地添加多余的分隔符。也就是最后一次迭代不会加分隔符。
-                open 属性：该属性值是在拼接SQL语句之前拼接的语句，只会拼接一次
-                close 属性：该属性值是在拼接SQL语句拼接后拼接的语句，只会拼接一次
-                例：
-                <foreach collection="array" item="id" separator="," open="(" close=")" >
-                    #{id}
-                </foreach>
+            bind：绑定变量 -> name：变量名称 -> value：Java表达式(带上包名路径访问可以调用Java方法)
+            绑定完成可以使用占位符访问(绑定相当于赋值关系，要注意数据类型问题)，参数冲突时，会使用绑定后的变量
+            例：<bind name="id" value="1"/>
     -->
+    <select id="queryDynamic" resultMap="studentResultMap">
+        select * from student
+        <where>
+            and id = #{id}
+            <if test="userName != null">
+                <bind name="userName" value="'%' + userName + '%'"/>
+                and user_name like #{userName}
+            </if>
+            <if test="userPhone != null">
+                <bind name="userPhone" value="'%' + userPhone + '%'"/>
+                and user_phone like #{userPhone}
+            </if>
+        </where>
+    </select>
+
+    <!--
+        update：更新
+            id：结果映射唯一标识
+        trim：会将元素内全部子句拼接成一个字符串，然后处理字符串(拼接，替换，删除)。类似String的正则表达式处理。
+            prefixOverrides：子句句首的匹配词列表，以|分隔，忽略大小写。如果匹配(空格也会匹配)，删除匹配的内容(只删除匹配词的内容)，不匹配不处理。
+            prefix：删除子句句首后，在句首前添加(prefix+空格)内容
+            suffixOverrides：子句句尾的匹配词列表，以|分隔，忽略大小写。如果匹配(空格也会匹配)，删除匹配的内容(只删除匹配词的内容)，不匹配不处理。
+            suffix：删除子句句尾后，在句首尾添加(空格+prefix)内容
+    -->
+    <update id="updateDynamic">
+        update student
+        <trim prefix="set" suffixOverrides=",">
+            <if test="entity.userName != null">
+                user_name = #{entity.userName},
+            </if>
+            <if test="entity.userPhone != null">
+                user_phone = #{entity.userPhone},
+            </if>
+        </trim>
+        <trim prefix="where" prefixOverrides="and |or ">
+            and id= #{entity.id}
+            <if test="entity.userName != null">
+                <bind name="userName" value="'%' + entity.userName + '%'"/>
+                and user_name like #{userName}
+            </if>
+            <if test="entity.userPhone != null">
+                <bind name="userPhone" value="'%' + entity.userPhone + '%'"/>
+                and user_phone like #{userPhone}
+            </if>
+        </trim>
+    </update>
+
+    <!--
+       delete：删除
+            id：结果映射唯一标识
+        foreach：用来遍历任何可遍历的对象(如数组，集合)
+            collection：本次遍历的集合。
+            item：本次遍历获取到的元素。
+            index：本次遍历元素的索引变量。
+            separator：集合遍历之间的分隔符。
+            open：该属性值是在拼接SQL语句之前拼接的语句，只会拼接一次
+            close：该属性值是在拼接SQL语句拼接后拼接的语句，只会拼接一次
+            例：
+            <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+    -->
+    <delete id="deleteDynamic">
+        delete from student where id in
+        <foreach item="item" index="index" collection="idList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!--
+        insert：查询
+            id：结果映射唯一标识
+            useGeneratedKeys：是否使用数据库的自增主键。
+            keyProperty：自增主键绑定的实体类属性名。
+        selectKey：获取主键
+            keyProperty：自增主键绑定的实体类属性名
+            resultType：主键类型，类的完全限定名，或者一个类型别名(long)
+            order：取值 AFTER 或者 BEFORE。
+                AFTER：新增执行之后执行，用于获取自增主键；
+                BEFORE：新增执行之前执行，用于没有自增主键的数据库，实现自定义主键。
+    -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into student (user_name, user_phone, user_age)
+        values (#{userName}, #{userPhone}, #{userAge})
+    </insert>
+
+    <insert id="insertSelectKey">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            select max(id) + 1 from student
+        </selectKey>
+        insert into student (id, user_name, user_phone, user_age)
+        values (#{id}, #{userName}, #{userPhone}, #{userAge})
+    </insert>
+
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        insert into student (user_name, user_phone, user_age) values
+        <foreach item="entity" collection="entityList" separator=",">
+            (#{entity.userName}, #{entity.userPhone}, #{entity.userAge})
+        </foreach>
+    </insert>
 
 </mapper>

@@ -3,17 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
+    <!--引入外部配置文件-->
+    <properties resource="druid.properties"/>
     <typeAliases>
         <!--name属性的值是实体类所在包-->
         <!--用于简化xml映射配置文件中resultType属性值的编写-->
         <package name="com.study.hello.mybatis.entity"/>
     </typeAliases>
-    <!--
-    environments：配置数据库连接环境信息。可以配置多个environment，通过default属性切换不同的environment
-    -->
-    <environments default="dev">
-        <environment id="dev">
+    <!--environments：配置数据库连接环境信息。可以配置多个environment，通过default属性切换不同的environment-->
+    <environments default="mysql">
+        <environment id="mysql">
             <!--使用JDBC事务管理-->
             <!--如果使用 Spring + MyBatis，则没有必要配置事务管理器，因为 Spring 模块自带的管理器会覆盖配置。-->
             <!--type="[JDBC|MANAGED]"-->

@@ -1,7 +1,8 @@
 package com.study.hello.mybatis.mapper;
 
 import com.study.hello.mybatis.entity.StudentEntity;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -76,7 +77,17 @@ public interface StudentMapper {
     /**
      * 更新数据(动态sql)
      */
+    Integer update(@Param("entity") StudentEntity entity);
+
+    /**
+     * 更新数据(动态sql)
+     */
     Integer updateDynamic(@Param("entity") StudentEntity entity);
+
+    /**
+     * 删除数据(动态sql)
+     */
+    Integer delete(Long id);
 
     /**
      * 删除数据(动态sql)
@@ -84,7 +95,7 @@ public interface StudentMapper {
     Integer deleteDynamic(List<Long> idList);
 
     /**
-     * 新增数据(主键返回)
+     * 新增数据(自增主键)
      */
     Integer insert(StudentEntity entity);
 
@@ -97,5 +108,76 @@ public interface StudentMapper {
      * 批量新增数据(动态sql)
      */
     Integer insertBatch(List<StudentEntity> entityList);
+
+    /**
+     * 新增数据(注解)
+     */
+    @Insert("insert into student (user_name, user_phone, user_age) values (#{userName}, #{userPhone}, #{userAge})")
+    Integer insertTest(StudentEntity entity);
+
+    /**
+     * 删除数据(注解)
+     */
+    @Delete("delete from student where id = #{id}")
+    Integer deleteTest(Long id);
+
+    /**
+     * 更新数据(注解)
+     */
+    @Update("update student set user_name = #{userName}, user_phone = #{userPhone}, user_age = #{userAge} where id = #{id}")
+    Integer updateTest(StudentEntity entity);
+
+    /**
+     * 查询详情(注解)
+     */
+    @Select("select * from student where id = #{id}")
+    @ResultMap(value = "resultMap")
+    StudentEntity selectInfo(Long id);
+
+    /**
+     * 查询列表(注解)
+     */
+    @Select("select * from student")
+    @ResultMap(value = "resultMap")
+    List<StudentEntity> selectList();
+
+    /**
+     * 分页查询(注解)
+     */
+    @Select("select * from student limit #{num}, #{size}")
+    @ResultMap(value = "resultMap")
+    List<StudentEntity> selectPage(Integer num, Integer size);
+
+    /**
+     * 查询数据量(注解)
+     */
+    @Select("select count(*) from student")
+    Integer selectSize();
+
+
+    /**
+     * @Results 注解代替的是标签<resultMap>
+     * 该注解中可以使用单个@Result注解，也可以使用@Result集合
+     * 属性介绍：
+     * id：结果映射唯一标识
+     * value：Result集合
+     * @Resutl 注解代替了<id>标签和<result>标签
+     * 属性介绍：
+     * id：是否是主键字段
+     * column：数据库的列名
+     * property：需要装配的属性名
+     * javaType：java类型(default void.class)，通常不会配置
+     * jdbcType：jdbc类型(default JdbcType.UNDEFINED)，通常不会配置
+     * typeHandler：类型转换器(default UnknownTypeHandler.class)，通常不会配置
+     */
+    @Results(id = "resultMap",
+            value = {
+                    @Result(id = true, column = "id", property = "id", javaType = Long.class, jdbcType = JdbcType.BIGINT),
+                    @Result(column = "user_name", property = "userName", javaType = String.class, jdbcType = JdbcType.VARCHAR),
+                    @Result(column = "user_phone", property = "userPhone", javaType = String.class, jdbcType = JdbcType.VARCHAR),
+                    @Result(column = "user_age", property = "userAge", javaType = Integer.class, jdbcType = JdbcType.INTEGER),
+            })
+    @Select("select * from student")
+    List<StudentEntity> selectResult();
 
 }

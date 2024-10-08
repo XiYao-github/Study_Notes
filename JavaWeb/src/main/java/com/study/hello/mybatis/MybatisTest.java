@@ -27,13 +27,14 @@ public class MybatisTest {
      */
     private SqlSession getSqlSession() throws IOException {
         // 加载数据库连接配置文件
-        Properties properties = Resources.getResourceAsProperties("druid.properties");
+        // Properties properties = Resources.getResourceAsProperties("druid.properties");
         // 加载mybatis核心配置文件
         InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
         // 选择配置的环境，一般不配置选默认值
-        String environment = "dev";
+        // String environment = "mysql";
         // 获取 SqlSessionFactory 工厂对象
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, environment, properties);
+        // SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, environment, properties); // 手动配置
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream); // 自动配置
         // 工厂对象获取 SqlSession 对象
         SqlSession sqlSession = sqlSessionFactory.openSession(); // 手动提交事务
         // SqlSession sqlSession = sqlSessionFactory.openSession(true); // 自动提交事务
@@ -125,6 +126,7 @@ public class MybatisTest {
         SqlSession sqlSession = getSqlSession();
         // 执行sql
         StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        // System.out.println("修改执行成功，受影响行数：" + mapper.update(student));
         System.out.println("修改执行成功，受影响行数：" + mapper.updateDynamic(student));
         // 提交事务
         sqlSession.commit();
@@ -141,6 +143,7 @@ public class MybatisTest {
         SqlSession sqlSession = getSqlSession();
         // 执行sql
         StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        // System.out.println("删除执行成功，受影响行数：" + mapper.delete(1L));
         System.out.println("删除执行成功，受影响行数：" + mapper.deleteDynamic(list));
         // 测试需要，不提交事务
         // sqlSession.commit();
@@ -194,4 +197,34 @@ public class MybatisTest {
         sqlSession.close();
     }
 
+    @Test
+    public void annotations() throws IOException {
+        // 构建参数
+        long id = 1;
+        String userName = "张三三";
+        String userPhone = "17720202177";
+        Integer userAge = 20;
+        StudentEntity student = new StudentEntity();
+        student.setId(id);
+        student.setUserName(userName);
+        student.setUserPhone(userPhone);
+        student.setUserAge(userAge);
+        // 获取SqlSession对象
+        SqlSession sqlSession = getSqlSession();
+        // 执行sql
+        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        // System.out.println("新增执行成功，受影响行数：" + mapper.insertTest(student));
+        // System.out.println("删除执行成功，受影响行数：" + mapper.deleteTest(id));
+        // System.out.println("修改执行成功，受影响行数：" + mapper.updateTest(student));
+
+        System.out.println("查询执行成功，selectInfo：" + mapper.selectInfo(id));
+        System.out.println("查询执行成功，selectList：" + mapper.selectList());
+        System.out.println("查询执行成功，selectPage：" + mapper.selectPage(0, 10));
+        System.out.println("查询执行成功，selectSize：" + mapper.selectSize());
+        System.out.println("查询执行成功，selectResult：" + mapper.selectResult());
+        // 提交事务
+        sqlSession.commit();
+        // 释放资源
+        sqlSession.close();
+    }
 }

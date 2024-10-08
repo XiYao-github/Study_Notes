@@ -158,6 +158,14 @@
             suffixOverrides：子句句尾的匹配词列表，以|分隔，忽略大小写。如果匹配(空格也会匹配)，删除匹配的内容(只删除匹配词的内容)，不匹配不处理。
             suffix：删除子句句尾后，在句首尾添加(空格+prefix)内容
     -->
+    <update id="update">
+        update student
+        set user_name  = #{entity.userName},
+            user_phone = #{entity.userPhone},
+            user_age   = #{entity.userAge}
+        where id = #{entity.id};
+    </update>
+
     <update id="updateDynamic">
         update student
         <trim prefix="set" suffixOverrides=",">
@@ -196,6 +204,12 @@
                 #{item}
             </foreach>
     -->
+    <delete id="delete">
+        delete
+        from student
+        where id = #{id};
+    </delete>
+
     <delete id="deleteDynamic">
         delete from student where id in
         <foreach item="item" index="index" collection="idList" open="(" separator="," close=")">

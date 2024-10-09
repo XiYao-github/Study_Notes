@@ -214,6 +214,9 @@ public class MybatisTest {
         // 执行sql
         StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
         // System.out.println("新增执行成功，受影响行数：" + mapper.insertTest(student));
+        // System.out.println("新增执行成功，数据生成主键：" + student.getId());
+        // System.out.println("新增执行成功，受影响行数：" + mapper.insertSelectKeyTest(student));
+        // System.out.println("新增执行成功，数据生成主键：" + student.getId());
         // System.out.println("删除执行成功，受影响行数：" + mapper.deleteTest(id));
         // System.out.println("修改执行成功，受影响行数：" + mapper.updateTest(student));
 
@@ -222,6 +225,36 @@ public class MybatisTest {
         System.out.println("查询执行成功，selectPage：" + mapper.selectPage(0, 10));
         System.out.println("查询执行成功，selectSize：" + mapper.selectSize());
         System.out.println("查询执行成功，selectResult：" + mapper.selectResult());
+        // 提交事务
+        sqlSession.commit();
+        // 释放资源
+        sqlSession.close();
+    }
+
+    @Test
+    public void sql() throws IOException {
+        // 构建参数
+        long id = 34;
+        String userName = "张三";
+        String userPhone = "17720202177";
+        Integer userAge = 20;
+        StudentEntity student = new StudentEntity();
+        student.setId(id);
+        student.setUserName(userName);
+        student.setUserPhone(userPhone);
+        student.setUserAge(userAge);
+        // 获取SqlSession对象
+        SqlSession sqlSession = getSqlSession();
+        // 执行sql
+        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        // System.out.println("新增执行成功，受影响行数：" + mapper.insertProvider(student));
+        // System.out.println("新增执行成功，数据生成主键：" + student.getId());
+        // System.out.println("新增执行成功，受影响行数：" + mapper.insertBatchProvider(student));
+        // System.out.println("删除执行成功，受影响行数：" + mapper.deleteProvider(id));
+        // System.out.println("修改执行成功，受影响行数：" + mapper.updateProvider(student));
+
+        System.out.println("查询执行成功，selectJoinProvider：" + mapper.selectJoinProvider());
+        System.out.println("查询执行成功，selectGroupProvider：" + mapper.selectGroupProvider());
         // 提交事务
         sqlSession.commit();
         // 释放资源

@@ -1,11 +1,13 @@
 package com.study.hello.mybatis.mapper;
 
+import com.study.hello.mybatis.MybatisSql;
 import com.study.hello.mybatis.entity.StudentEntity;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*
     MyBatis 参数封装：
@@ -110,10 +112,19 @@ public interface StudentMapper {
     Integer insertBatch(List<StudentEntity> entityList);
 
     /**
-     * 新增数据(注解)
+     * 新增数据(注解，自增主键)
      */
     @Insert("insert into student (user_name, user_phone, user_age) values (#{userName}, #{userPhone}, #{userAge})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer insertTest(StudentEntity entity);
+
+    /**
+     * 新增数据(注解，主键生成：selectKey)
+     * 使用 @SelectKey 会忽略设置的 @Options
+     */
+    @Insert("insert into student (id, user_name, user_phone, user_age) values (#{id}, #{userName}, #{userPhone}, #{userAge})")
+    @SelectKey(statement = "select max(id) + 1 from student", keyProperty = "id", before = true, resultType = Long.class)
+    Integer insertSelectKeyTest(StudentEntity entity);
 
     /**
      * 删除数据(注解)
@@ -179,5 +190,24 @@ public interface StudentMapper {
             })
     @Select("select * from student")
     List<StudentEntity> selectResult();
+
+    @InsertProvider(type = MybatisSql.class, method = "insertProvider")
+    Integer insertProvider(StudentEntity entity);
+
+    @InsertProvider(type = MybatisSql.class, method = "insertBatchProvider")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    Integer insertBatchProvider(StudentEntity entity);
+
+    @DeleteProvider(type = MybatisSql.class, method = "deleteProvider")
+    Integer deleteProvider(Long id);
+
+    @UpdateProvider(type = MybatisSql.class, method = "updateProvider")
+    Integer updateProvider(StudentEntity entity);
+
+    @SelectProvider(type = MybatisSql.class, method = "selectJoinProvider")
+    List<Map<String, Object>> selectJoinProvider();
+
+    @SelectProvider(type = MybatisSql.class, method = "selectGroupProvider")
+    List<Map<String, Object>> selectGroupProvider();
 
 }
